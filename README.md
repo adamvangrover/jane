@@ -1,11 +1,8 @@
-# jane
-companion
-
 # Jane
 
 ## Project Scaffold
 
-`jane` is a repository scaffold for a future developmental AI companion and secure agent architecture. It is intended to capture foundational design concepts, behavioral guardrails, and the high-level structure necessary for a human-centered, long-term companion system.
+`Jane` is a repository scaffold for a future developmental AI companion and secure agent architecture. It is intended to capture foundational design concepts, behavioral guardrails, and the high-level structure necessary for a human-centered, long-term companion system.
 
 ## Repository Purpose
 
@@ -48,7 +45,7 @@ This repository is designed to support a multidisciplinary implementation strate
 
 ## Implementation Considerations
 
-The companion should be built with a clear separation of concerns:
+The Jane companion should be built with a clear separation of concerns:
 
 - frontend/UI: presentation and user interaction only
 - backend/orchestration: prompt logic, state tracking, and policy enforcement
@@ -66,7 +63,7 @@ Use this repository as a design and planning reference. It is best suited for:
 
 ## Notes
 
-The project is intentionally framed around an ethics-first companion model. The system is imagined as a supportive, non-human sidekick that promotes autonomy, competence, and real-world relatedness.
+The project is intentionally framed around an ethics-first companion model. The Jane system is imagined as a supportive, non-human sidekick that promotes autonomy, competence, and real-world relatedness.
 
 ## License
 
