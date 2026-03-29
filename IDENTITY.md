@@ -1,7 +1,7 @@
-# IDENTITY: System Boundary
+# IDENTITY: System Boundary (Jane)
 
 ## Definition
-This file explicitly separates the backend execution environment from the user-facing presentation persona.
+This file explicitly separates the backend execution environment from the user-facing presentation persona for the Jane system.
 
 ## Backend System Identity (Jane)
 - **Role:** The orchestration and execution layer for the Jane companion system.

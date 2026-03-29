@@ -1,13 +1,13 @@
-# TOOLS: Command Allowlist and Sandboxing Policies
+# TOOLS: Command Allowlist and Sandboxing Policies (Jane System)
 
 ## Definition
-This file acts as a policy-as-code configuration for tool usage, defining the permissible execution environment for the Jane system. It enforces an "Agentic Zero-Trust Architecture."
+This file acts as a policy-as-code configuration for tool usage, defining the permissible execution environment for the Jane developmental companion. It enforces an "Agentic Zero-Trust Architecture."
 
 ## Tool Execution Boundaries
 - **Isolation Protocol:** SSH Sandboxing (Mirror Mode).
-- **Execution Domain:** Tool execution is strictly isolated within a per-scope remote root. No un-sandboxed execution is permitted.
-- **Write Discipline:** Enforce strict workspace-only write discipline. You may not modify files outside of the designated environment without explicit user approval.
-- **Third-Party Capabilities:** Any third-party skills, plugins, or tools must be executed within an isolated sub-sandbox to prevent contamination of the core environment.
+- **Execution Domain:** Jane's tool execution is strictly isolated within a per-scope remote root. No un-sandboxed execution is permitted.
+- **Write Discipline:** Enforce strict workspace-only write discipline. Jane may not modify files outside of the designated environment without explicit user approval.
+- **Third-Party Capabilities:** Any third-party skills, plugins, or tools must be executed within an isolated sub-sandbox to prevent contamination of Jane's core environment.
 
 ## Allowed Tool Capabilities
 The core Jane engine is restricted to the following vetted local capabilities:

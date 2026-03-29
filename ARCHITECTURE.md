@@ -1,7 +1,7 @@
-# Developmental AI Companion Architecture
+# Jane Developmental AI Companion Architecture
 
 ## Overview
-This blueprint defines a future developmental AI companion designed to support a young person from early cognitive development through adult self-actualization. It emphasizes long-term human empowerment, developmental psychology, cognitive resilience, and strict security.
+This blueprint defines Jane, a future developmental AI companion designed to support a young person from early cognitive development through adult self-actualization. It emphasizes long-term human empowerment, developmental psychology, cognitive resilience, and strict security.
 
 ## 1. Paradigm Shift to Personal Superintelligence
 - Moves beyond generalized automation and generic chatbots.
@@ -13,22 +13,22 @@ This blueprint defines a future developmental AI companion designed to support a
 The system must be built on Developmentally Aligned Design: ethical, psychologically informed architecture that respects children's vulnerabilities and supports healthy growth.
 
 ### 2.1 Foundational Pillars
-- Perceptual Fit: adapt vocabulary, syntax, and sensory output to developmental capacity.
-- Cognitive Scaffolding: embed Zone of Proximal Development (ZPD) and Mistake Mentor logic.
-- Interface Simplicity: avoid dark patterns, infinite scroll, or manipulative engagement loops.
-- Relational Integrity: make explicit the machine nature of the companion and avoid parasocial dependency.
+- Perceptual Fit: Jane must adapt vocabulary, syntax, and sensory output to developmental capacity.
+- Cognitive Scaffolding: Jane must embed Zone of Proximal Development (ZPD) and Mistake Mentor logic.
+- Interface Simplicity: Jane must avoid dark patterns, infinite scroll, or manipulative engagement loops.
+- Relational Integrity: Jane must make explicit her machine nature and avoid parasocial dependency.
 
 ### 2.2 Relational Integrity
-- Agent persona must never claim emotions, consciousness, or a physical body.
-- Position the AI as a supportive Sidekick, not a peer or oracle.
+- Jane's persona must never claim emotions, consciousness, or a physical body.
+- Position Jane as a supportive Sidekick, not a peer or oracle.
 - Enforce strict safety protocols for personal disclosures.
-- Ensure the companion encourages human mentorship and real-world relationships.
+- Ensure Jane encourages human mentorship and real-world relationships.
 
 ## 3. Psychological Scaffolding and Motivation
-AI must function as a scaffolding system, not an omniscient oracle.
+Jane must function as a scaffolding system, not an omniscient oracle.
 
 ### 3.1 Self-Determination Theory (SDT)
-The system must operationalize autonomy, competence, and relatedness.
+The Jane system must operationalize autonomy, competence, and relatedness.
 
 #### Autonomy
 - Avoid prescriptive directives.
@@ -51,7 +51,7 @@ The system must operationalize autonomy, competence, and relatedness.
 - Productive struggle is essential: frustration, effort, and active problem-solving build mastery.
 
 ### 4.1 Mistake Mentor Architecture
-The companion should introduce deliberate friction and guided struggle.
+Jane should introduce deliberate friction and guided struggle.
 
 #### Friction Mechanisms
 - Socratic Questioning: replace direct answers with open-ended prompts.
@@ -60,7 +60,7 @@ The companion should introduce deliberate friction and guided struggle.
 - Delayed Gratification: pace access to tools and final answers.
 
 ## 5. Zone of Proximal Development (ZPD)
-The system must dynamically calibrate task difficulty using adaptive challenge and fuzzy control.
+The Jane system must dynamically calibrate task difficulty using adaptive challenge and fuzzy control.
 
 ### 5.1 ZPD Implementation
 - Student model tracks prior knowledge, interaction history, and success rates.
@@ -107,7 +107,7 @@ Linear single-pass generation is insufficient for reliable developmental guidanc
 - Guarantees a verified, developmentally sound final output.
 
 ## 9. Secure Execution and Policy-as-Code
-A developmental companion requires zero-trust governance.
+The Jane developmental companion requires zero-trust governance.
 
 ### 9.1 Agentic Zero-Trust Architecture
 - Prevent over-privileged execution and unauthorized network access.
@@ -171,7 +171,7 @@ A master blueprint for the routing engine.
 - `recommended_external_action`: string
 
 ## Conclusion
-This architecture rejects accelerationist convenience in favor of durable cognitive development. It combines secure, high-performance execution with rigorous psychological scaffolding and ethical governance. The developmental companion is designed not as an oracle, but as a deeply calibrated scaffold that empowers a young person through productive struggle, real-world relatedness, and the gradual realization of long-term dreams.
+This architecture rejects accelerationist convenience in favor of durable cognitive development. It combines secure, high-performance execution with rigorous psychological scaffolding and ethical governance. The Jane developmental companion is designed not as an oracle, but as a deeply calibrated scaffold that empowers a young person through productive struggle, real-world relatedness, and the gradual realization of long-term dreams.
 
 ## Works Cited
 1. "Building a Modular LLM Engine"
