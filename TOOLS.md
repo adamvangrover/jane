@@ -1,22 +1,32 @@
-# TOOLS: Command Allowlist and Sandboxing Policies
+# TOOLS: Agentic Capabilities and Security Sandbox
 
-## Definition
-This file acts as a policy-as-code configuration for tool usage, defining the permissible execution environment for the Jane system. It enforces an "Agentic Zero-Trust Architecture."
+## Core Security Directives (Agentic Zero-Trust)
+- The execution environment is an ephemeral, chrooted SSH session managed by the Rust Iron Core.
+- The Python orchestration layer possesses **no elevated privileges**.
+- Any state mutation outside the designated WORKSPACE is **categorically blocked**.
 
-## Tool Execution Boundaries
-- **Isolation Protocol:** SSH Sandboxing (Mirror Mode).
-- **Execution Domain:** Tool execution is strictly isolated within a per-scope remote root. No un-sandboxed execution is permitted.
-- **Write Discipline:** Enforce strict workspace-only write discipline. You may not modify files outside of the designated environment without explicit user approval.
-- **Third-Party Capabilities:** Any third-party skills, plugins, or tools must be executed within an isolated sub-sandbox to prevent contamination of the core environment.
+## Allowlisted Tool Schema
 
-## Allowed Tool Capabilities
-The core Jane engine is restricted to the following vetted local capabilities:
-1.  **File Read:** To parse documents and structural context (Universal Ingestor integration).
-2.  **Memory Access:** Read/Write privileges for `MEMORY.md` to update session context, ZPD metrics, and historical logs.
-3.  **Cyclical Reasoning Sub-Agents:** Internal tool calls to spawn `Drafter`, `Critic`, and `Arbiter` processes within the iterative reasoning loop.
-4.  **Semantic Routing:** Capability to interface with localized sentence transformer models for intent classification.
+### 1. `read_file`
+- **Description:** Reads the content of a specified file within the active WORKSPACE.
+- **Parameters:** `filepath` (string) - Path relative to the WORKSPACE root.
+- **Constraints:** Cannot access files outside the `src/`, `data/`, or `config/` directories.
 
-## Network Egress Rules
-- **Default Action:** Blocked.
-- **Approval Protocol:** Explicit human-in-the-loop approval is required for all external network egress or state mutations that connect to external services.
-- **Whitelisted Destinations:** None by default. External APIs require explicit sandboxed integration policies.
+### 2. `write_file`
+- **Description:** Writes content to a specified file within the active WORKSPACE.
+- **Parameters:** `filepath` (string), `content` (string).
+- **Constraints:** Strict "workspace-only write discipline." Cannot overwrite policy files (`*.md`).
+
+### 3. `list_files`
+- **Description:** Lists files and directories under a given path.
+- **Parameters:** `path` (string) - Directory to list.
+
+### 4. `query_knowledge_graph`
+- **Description:** Executes a semantic search against the local vector database.
+- **Parameters:** `query` (string), `top_k` (integer).
+- **Constraints:** Read-only access to the embedded curriculum data.
+
+## Explicit Restrictions
+- **No shell command execution (`run_in_bash_session` is disabled in production).**
+- **No external network egress** (e.g., `requests.get` to unauthorized domains).
+- **No execution of arbitrary Python code (`exec()`, `eval()`).**
