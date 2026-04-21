@@ -1,3 +1,8 @@
+pydantic>=2.0
+sentence-transformers>=2.0
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
 # Core Orchestration and Routing
 langgraph==0.0.26
 sentence-transformers==2.2.2
