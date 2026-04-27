@@ -5,13 +5,13 @@ uvicorn>=0.23.0
 
 # Core Orchestration and Routing
 langgraph==0.0.26
-sentence-transformers==2.2.2
+sentence-transformers>=2.0
 pydantic==2.5.3
 instructor==0.5.2
 outlines==0.0.34
 
 # Psychology Computational Models (ZPD/SDT)
-scikit-fuzzy==0.4.2
+scikit-fuzzy==0.5.0
 numpy==1.26.3
 scipy==1.11.4
 
