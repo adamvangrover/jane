@@ -3,9 +3,21 @@ import re
 import asyncio
 import logging
 from enum import Enum
+import os
 from pydantic import BaseModel, Field
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import instructor
+from openai import AsyncOpenAI
+import sys
+import types
+if 'imp' not in sys.modules:
+    imp_module = types.ModuleType('imp')
+    imp_module.find_module = lambda *args, **kwargs: None
+    sys.modules['imp'] = imp_module
+
+import skfuzzy as fuzz
+from skfuzzy import control as ctrl
 
 # Configure structured logging
 logging.basicConfig(
@@ -196,6 +208,53 @@ class CyclicalReasoningGraph:
         ]
         self.intent_embeddings = self.embedder.encode(self.intents)
 
+        # Load prompt library
+        self.prompts = {}
+        for p in ["DRAFTER_PROMPTS.md", "CRITIC_PROMPTS.md", "MISTAKE_MENTOR_PROMPTS.md"]:
+            path = os.path.join("prompts", p)
+            if os.path.exists(path):
+                with open(path, "r") as f:
+                    self.prompts[p.split(".")[0]] = f.read()
+            else:
+                self.prompts[p.split(".")[0]] = ""
+
+        # Setup OpenAI LLM Harness
+        api_key = os.environ.get("OPENAI_API_KEY")
+        self.llm_available = bool(api_key)
+        if self.llm_available:
+            try:
+                if hasattr(instructor, "from_openai"):
+                    self.client = instructor.from_openai(AsyncOpenAI(api_key=api_key))
+                else:
+                    self.client = instructor.apatch(AsyncOpenAI(api_key=api_key))
+            except Exception as e:
+                logger.error(f"Failed to initialize instructor LLM Harness: {e}")
+                self.llm_available = False
+
+        # Setup Fuzzy Logic Controller for ZPD
+        self._setup_fuzzy_controller()
+
+    def _setup_fuzzy_controller(self):
+        # Antecedents (Inputs)
+        frustration = ctrl.Antecedent(np.arange(0, 11, 1), 'frustration')
+        current_zpd = ctrl.Antecedent(np.arange(0, 1.1, 0.1), 'current_zpd')
+
+        # Consequent (Output)
+        zpd_delta = ctrl.Consequent(np.arange(-0.5, 0.6, 0.1), 'zpd_delta')
+
+        # Membership functions
+        frustration.automf(3)
+        current_zpd.automf(3)
+        zpd_delta.automf(3)
+
+        # Rules
+        rule1 = ctrl.Rule(frustration['good'], zpd_delta['poor']) # high frustration -> negative delta
+        rule2 = ctrl.Rule(frustration['poor'], zpd_delta['good']) # low frustration -> positive delta
+        rule3 = ctrl.Rule(frustration['average'], zpd_delta['average']) # medium frustration -> zero delta
+
+        self.zpd_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
+        self.zpd_sim = ctrl.ControlSystemSimulation(self.zpd_ctrl)
+
     def route_intent(self, query: str) -> str:
         query_embedding = self.embedder.encode([query])
         similarities = self.embedder.similarity(query_embedding, self.intent_embeddings)[0]
@@ -242,18 +301,33 @@ class CyclicalReasoningGraph:
 
         # Dynamic ZPD "Fuzzy Control" Adjustment
         current_zpd = self.memory_manager.get_last_zpd_level()
-        if intent == "math tutoring":
-            # Assume successful progression, increase difficulty (ZPD) slightly
-            new_zpd = min(1.0, current_zpd + 0.05)
-        elif intent == "emotional distress":
-            # High frustration marker, drastically reduce abstraction/complexity
-            new_zpd = max(0.0, current_zpd - 0.15)
-        elif intent == "behavioral intervention":
-            # Correcting a mistake, lower ZPD slightly to ensure foundation is strong
-            new_zpd = max(0.0, current_zpd - 0.05)
-        else:
-            # Maintain current abstraction level
-            new_zpd = current_zpd
+        frust_level = 8 if intent == "emotional distress" else (2 if intent == "math tutoring" else 5)
+
+        try:
+            self.zpd_sim.input['frustration'] = frust_level
+            self.zpd_sim.input['current_zpd'] = current_zpd
+            self.zpd_sim.compute()
+            delta = self.zpd_sim.output['zpd_delta']
+        except Exception:
+            delta = 0.0
+
+        new_zpd = max(0.0, min(1.0, current_zpd + delta))
+
+        # LLM Harness Fallback or Actual Call
+        if self.llm_available:
+            try:
+                system_prompt = self.prompts.get("DRAFTER_PROMPTS", "You are a helpful assistant.")
+                response_model = await self.client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    response_model=JaneOutput,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": query}
+                    ]
+                )
+                return response_model
+            except Exception as e:
+                logger.error(f"LLM Harness failed: {e}. Falling back to deterministic mock.")
 
         # The conviction score is slightly randomized to simulate the LLM's varying confidence
         conviction = 0.98 if np.random.rand() > 0.1 else 0.85

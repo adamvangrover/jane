@@ -1,6 +1,7 @@
 import logging
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import Optional
 from jane import CyclicalReasoningGraph
 
 # Configure structured logging
@@ -21,7 +22,7 @@ class QueryRequest(BaseModel):
 
 class ConsolidateResponse(BaseModel):
     status: str
-    avg_zpd: float = None
+    avg_zpd: Optional[float] = None
 
 @app.post("/query")
 async def process_query(request: QueryRequest):
