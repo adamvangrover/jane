@@ -1,0 +1,31 @@
+# Jane - Developmental AI Companion
+
+> Jane is a repository scaffold for a future developmental AI companion and secure agent architecture.
+
+It is intended to capture foundational design concepts, behavioral guardrails, and the high-level structure necessary for a human-centered, long-term companion system. Jane is not an omniscient oracle, but a "Mistake Mentor" and supportive sidekick designed for long-term human actualization.
+
+The architecture is built upon four pillars:
+1. The Rust "Iron Core" & Zero-Trust Agentic Execution
+2. The Cyclical Reasoning Graph (Multi-Agent Routing)
+3. Algorithmic Translation of ZPD (Zone of Proximal Development) and SDT (Self-Determination Theory)
+4. Mitigating Parasocial Dependency (Developmentally Aligned Design - DAD)
+
+## Core Documentation
+
+- [ARCHITECTURE.md](ARCHITECTURE.md): The main blueprint for the developmental AI companion, detailing psychological scaffolding and security.
+- [MASTER_PROMPT.md](MASTER_PROMPT.md): Foundational LLM initialization prompt (Policy-as-Code), a comprehensive product specification, and an expert technical manual.
+- [README.md](README.md): Project orientation and scaffold guidance.
+- [WHITEPAPER.md](WHITEPAPER.md): Detailed explanation of the system's philosophy, mechanism, and reasoning framework.
+- [AGENTS.md](AGENTS.md): Describes the Multi-Agent Routing and guidelines for AI agents modifying the repository.
+- [TECH_SPEC.md](TECH_SPEC.md): Technical specification, tool limitations, and capabilities.
+
+## Codebase Structure
+
+- `rust_core/`: The Rust "Iron Core" for memory-safe cryptographic key management, sandboxing, and secure execution.
+- `src/ui/`: Strictly isolated TypeScript/React presentation layer (dumb terminal).
+- `jane.py`: Python orchestration layer implementing memory management, Multi-Agent routing, and deterministic outputs via Pydantic.
+- `server.py`: FastAPI microservice exposing `/query` and `/consolidate`.
+
+## Optional Full Text
+
+- [llms-full.txt](llms-full.txt): A concatenated file containing the full text of all critical architecture and policy documentation for deep LLM context ingestion.
