@@ -1,11 +1,18 @@
 import json
 import sys
-from src.backend.orchestrator import process_query
+import asyncio
+import os
 
-def main():
+# Add root directory to python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from jane import CyclicalReasoningGraph
+
+async def main_async():
     print("Jane Developmental AI Companion Prototype")
     print("Type 'exit' or 'quit' to close.")
     print("-" * 40)
+
+    graph = CyclicalReasoningGraph()
 
     while True:
         try:
@@ -18,11 +25,11 @@ def main():
                 continue
 
             # Pass the input to the backend orchestrator
-            response_json = process_query(user_input)
+            response_payload = await graph.process_query(user_input)
 
             # Print the formatted JSON response
             print("\nJane Response Payload:")
-            print(response_json)
+            print(response_payload.model_dump_json(indent=2))
 
         except EOFError:
             print("\nJane: Session terminated.")
@@ -32,6 +39,9 @@ def main():
             break
         except Exception as e:
             print(f"\nJane encountered an error: {e}")
+
+def main():
+    asyncio.run(main_async())
 
 if __name__ == "__main__":
     main()
