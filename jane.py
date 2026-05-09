@@ -317,6 +317,15 @@ class CyclicalReasoningGraph:
         if self.llm_available:
             try:
                 system_prompt = self.prompts.get("DRAFTER_PROMPTS", "You are a helpful assistant.")
+                system_prompt += f"\n\n[SYSTEM DIRECTIVE] The current target ZPD (Zone of Proximal Development) level is {new_zpd:.2f}. Adjust your cognitive complexity and scaffolding accordingly."
+
+                # Mistake Mentor Friction Interceptor
+                if intent in ["math tutoring", "cognitive assessment"]:
+                    mistake_mentor_prompt = self.prompts.get("MISTAKE_MENTOR_PROMPTS", "")
+                    if mistake_mentor_prompt:
+                        system_prompt += f"\n\n[MISTAKE MENTOR PROTOCOL ACTIVE]\n{mistake_mentor_prompt}"
+
+
                 response_model = await self.client.chat.completions.create(
                     model="gpt-3.5-turbo",
                     response_model=JaneOutput,
