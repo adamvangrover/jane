@@ -1,0 +1,9 @@
+2023-10-27 10:00:00 - JaneOrchestrator - [INFO] - Routed query to intent: brainstorming
+2023-10-27 10:00:01 - JaneOrchestrator - [INFO] - Fuzzy Controller Output: zpd_delta=0.05, current_zpd=0.45
+2023-10-27 10:00:02 - JaneOrchestrator - [INFO] - Critic Validation: conviction_score=0.98
+2023-10-27 10:05:00 - JaneOrchestrator - [INFO] - Routed query to intent: math tutoring
+2023-10-27 10:05:01 - JaneOrchestrator - [INFO] - Fuzzy Controller Output: zpd_delta=-0.10, current_zpd=0.60
+2023-10-27 10:05:02 - JaneOrchestrator - [WARNING] - Critic Validation Failed: conviction_score=0.85. Re-routing to Drafter.
+2023-10-27 10:05:05 - JaneOrchestrator - [INFO] - Critic Validation: conviction_score=0.97
+2023-10-27 10:15:00 - MonitorDaemon - [INFO] - Telemetry Update: Scanned 2 interaction blocks.
+2023-10-27 10:30:00 - MonitorDaemon - [WARNING] - Digital Isolation Alert: High interaction volume detected. Prompting relatedness template.

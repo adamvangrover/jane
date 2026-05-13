@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane UI Showcase - Interactive Demo</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #1e1e1e;
+            color: #c5c8c6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #chat-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #373b41;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #282a2e;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .user-message {
+            background-color: #373b41;
+            color: #81a2be;
+            text-align: right;
+        }
+        .jane-message {
+            background-color: #1d1f21;
+            color: #b5bd68;
+        }
+        #input-container {
+            display: flex;
+        }
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            background-color: #282a2e;
+            color: #c5c8c6;
+            border: 1px solid #373b41;
+            font-family: monospace;
+        }
+        #send-button {
+            padding: 10px 20px;
+            background-color: #81a2be;
+            color: #1d1f21;
+            border: none;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        #status-bar {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #969896;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jane UI Showcase</h1>
+    <p>This is a static, interactive representation of the isolated presentation layer. Try asking about math, science, or how to learn something new!</p>
+    <div id="chat-container">
+        <div class="message jane-message">Hello! I'm Jane, your supportive sidekick. How can we explore and learn today? (Hint: try asking me to 'solve a math problem', 'explain gravity', or say 'I'm frustrated')</div>
+    </div>
+    <div id="input-container">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button id="send-button">Send</button>
+    </div>
+    <div id="status-bar">STATUS: INTERACTIVE DEMO | JS MOCK ACTIVE</div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        const knowledgeBase = [
+            {
+                keywords: ['math', 'solve', 'calculate'],
+                responses: [
+                    "I can certainly help you figure this out! What's the first step you think we should take?",
+                    "Let's break this math problem down into smaller, bite-sized pieces. Which part makes sense so far?",
+                    "It looks like you're working on some math. Why don't you show me what you've tried, and we can look at it together."
+                ]
+            },
+            {
+                keywords: ['gravity', 'science', 'physics'],
+                responses: [
+                    "Gravity is fascinating! Think of it like a giant invisible magnet that pulls things together. The bigger the object, the stronger the pull. If you jump, why do you think you come back down?",
+                    "Let's explore science! To understand this, let's think of an analogy: imagine you drop a bowling ball and a feather on the moon. What do you think happens?"
+                ]
+            },
+            {
+                keywords: ['frustrated', 'stuck', 'hard', 'give up'],
+                responses: [
+                    "It's completely normal to feel stuck. That 'stuck' feeling is actually your brain growing! Let's take a deep breath. Which part is causing the most friction right now?",
+                    "Learning hard things takes time. I'm here to support you. Maybe we should take a step back and try looking at it from a different angle. What do you think?",
+                    "Sometimes the best thing to do when you're stuck is to take a break and go outside. You can always come back to this later with fresh eyes!"
+                ]
+            },
+            {
+                keywords: ['hello', 'hi', 'hey'],
+                responses: [
+                    "Hello! It's great to see you. What are we investigating today?",
+                    "Hi there! Are you ready to tackle some interesting challenges?"
+                ]
+            }
+        ];
+
+        const defaultResponses = [
+            "That's an interesting question. Can you tell me a little more about how you reached that conclusion?",
+            "Let's think about that together. If we look at it from another perspective, what might change?",
+            "I'm a tool designed to help you think through problems. Let's break your thought down. What is the core idea?",
+            "Fascinating! Let's follow that thread. Where do you think that leads?"
+        ];
+
+        function getJaneResponse(userText) {
+            const lowerText = userText.toLowerCase();
+
+            for (const item of knowledgeBase) {
+                for (const keyword of item.keywords) {
+                    if (lowerText.includes(keyword)) {
+                        const randomIndex = Math.floor(Math.random() * item.responses.length);
+                        return item.responses[randomIndex];
+                    }
+                }
+            }
+
+            const randomDefaultIndex = Math.floor(Math.random() * defaultResponses.length);
+            return defaultResponses[randomDefaultIndex];
+        }
+
+        function appendMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'jane-message');
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function handleSend() {
+            const text = userInput.value.trim();
+            if (text === '') return;
+
+            // User message
+            appendMessage(text, 'user');
+            userInput.value = '';
+
+            // Simulate slight delay for Jane's response
+            setTimeout(() => {
+                const janeResponse = getJaneResponse(text);
+                appendMessage(janeResponse, 'jane');
+            }, 500);
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+    </script>
+</body>
+</html>

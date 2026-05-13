@@ -29,3 +29,4 @@ The architecture is built upon four pillars:
 ## Optional Full Text
 
 - [llms-full.txt](llms-full.txt): A concatenated file containing the full text of all critical architecture and policy documentation for deep LLM context ingestion.
+- [USER_GUIDE.md](docs/USER_GUIDE.md): Overarching user guide that explains the psychology engine (ZPD, SDT), how to run the interactive CLI, and how to start the FastAPI server.
