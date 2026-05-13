@@ -2,49 +2,60 @@ import time
 import os
 import logging
 import json
+import re
+from datetime import datetime
 
+# Configure structured logging for telemetry
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - [%(levelname)s] - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler("ml_telemetry.log"),
+        logging.StreamHandler()
+    ]
 )
-logger = logging.getLogger("MemoryMonitorDaemon")
+logger = logging.getLogger("MonitorDaemon")
 
 MEMORY_FILE = "MEMORY.md"
-CHECK_INTERVAL = 10 # seconds for demo purposes, typically much longer
+ISOLATION_THRESHOLD_MINUTES = 120  # Example threshold: 2 hours of continuous interaction
 
-def check_digital_isolation():
+def check_isolation_patterns():
+    """
+    Scans MEMORY.md for interaction session logs and checks if the volume
+    indicates potential digital isolation (e.g., long session times).
+    """
     if not os.path.exists(MEMORY_FILE):
         return
 
     try:
-        with open(MEMORY_FILE, "r") as f:
+        with open(MEMORY_FILE, 'r') as f:
             content = f.read()
 
-        # Count the number of sessions as a crude metric for digital isolation / overuse
-        session_count = content.count("### Interaction Session Log")
+        # Extract JSON blocks
+        json_blocks = re.findall(r'```json\n(.*?)\n```', content, re.DOTALL)
 
-        # In a real system, we would parse timestamps and detect over-reliance.
-        # For prototype purposes, if there are more than 50 interactions without
-        # real-world action logging, flag for isolation.
+        # In a real implementation, we would parse timestamps from the blocks.
+        # Here we just log a simplified telemetry check.
+        block_count = len(json_blocks)
+        logger.info(f"Telemetry Update: Scanned {block_count} interaction blocks.")
 
-        if session_count > 50:
-            logger.warning(f"Digital Isolation Alert: High session count ({session_count}) detected in {MEMORY_FILE}.")
-            logger.warning("Recommendation: Route future interactions to encourage real-world mentor engagement.")
-        else:
-            logger.info(f"Memory analysis complete. Session count: {session_count}. No isolation patterns detected.")
+        if block_count > 10:
+             logger.warning("Digital Isolation Alert: High interaction volume detected. Prompting relatedness template.")
+             # Trigger semantic routing adjustment in actual implementation
 
     except Exception as e:
         logger.error(f"Error reading {MEMORY_FILE}: {e}")
 
-def main():
-    logger.info("Starting Background Memory Monitor Daemon...")
-    try:
-        while True:
-            check_digital_isolation()
-            time.sleep(CHECK_INTERVAL)
-    except KeyboardInterrupt:
-        logger.info("Monitor Daemon stopped.")
+def run():
+    logger.info("Monitor Daemon initialized. Starting memory scan loop.")
+    while True:
+        check_isolation_patterns()
+        # Sleep for a given interval before next check (e.g. 5 seconds for testing)
+        time.sleep(5)
 
 if __name__ == "__main__":
-    main()
+    try:
+        run()
+    except KeyboardInterrupt:
+        logger.info("Monitor Daemon stopped.")
