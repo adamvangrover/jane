@@ -19,6 +19,46 @@ The architecture is built upon four pillars:
 - [AGENTS.md](AGENTS.md): Describes the Multi-Agent Routing and guidelines for AI agents modifying the repository.
 - [TECH_SPEC.md](TECH_SPEC.md): Technical specification, tool limitations, and capabilities.
 
+## Agents Guidelines
+- [rust_core/AGENTS.md](rust_core/AGENTS.md)
+- [rust_core/src/AGENTS.md](rust_core/src/AGENTS.md)
+- [src/AGENTS.md](src/AGENTS.md)
+- [src/backend/AGENTS.md](src/backend/AGENTS.md)
+- [src/core/AGENTS.md](src/core/AGENTS.md)
+- [src/ui/AGENTS.md](src/ui/AGENTS.md)
+
+## Prompts
+- [prompts/ARBITER_PROMPTS.md](prompts/ARBITER_PROMPTS.md)
+- [prompts/CRITIC_PROMPTS.md](prompts/CRITIC_PROMPTS.md)
+- [prompts/DRAFTER_PROMPTS.md](prompts/DRAFTER_PROMPTS.md)
+- [prompts/MISTAKE_MENTOR_PROMPTS.md](prompts/MISTAKE_MENTOR_PROMPTS.md)
+- [prompts/PROMPT_LIBRARY.md](prompts/PROMPT_LIBRARY.md)
+- [prompts/ROUTER_PROMPTS.md](prompts/ROUTER_PROMPTS.md)
+
+## Docs, Specs & Tutorials
+- [docs/BUILD_GUIDE_PYTHON.md](docs/BUILD_GUIDE_PYTHON.md)
+- [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)
+- [docs/TECH_SPEC_UI.md](docs/TECH_SPEC_UI.md)
+- [docs/TUTORIAL_01_GETTING_STARTED.md](docs/TUTORIAL_01_GETTING_STARTED.md)
+- [docs/TUTORIAL_02_ARCHITECTURE_DEEP_DIVE.md](docs/TUTORIAL_02_ARCHITECTURE_DEEP_DIVE.md)
+- [docs/TUTORIAL_03_ZPD_AND_SDT.md](docs/TUTORIAL_03_ZPD_AND_SDT.md)
+- [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
+
+## Readmes and Development
+- [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md)
+- [IDENTITY.md](IDENTITY.md)
+- [MEMORY.md](MEMORY.md)
+- [ROADMAP.md](ROADMAP.md)
+- [SOUL.md](SOUL.md)
+- [TOOLS.md](TOOLS.md)
+- [rust_core/BUILD_GUIDE.md](rust_core/BUILD_GUIDE.md)
+- [rust_core/README.md](rust_core/README.md)
+- [rust_core/src/README.md](rust_core/src/README.md)
+- [src/README.md](src/README.md)
+- [src/backend/README.md](src/backend/README.md)
+- [src/core/README.md](src/core/README.md)
+- [src/ui/README.md](src/ui/README.md)
+
 ## Codebase Structure
 
 - `rust_core/`: The Rust "Iron Core" for memory-safe cryptographic key management, sandboxing, and secure execution.
@@ -29,4 +69,3 @@ The architecture is built upon four pillars:
 ## Optional Full Text
 
 - [llms-full.txt](llms-full.txt): A concatenated file containing the full text of all critical architecture and policy documentation for deep LLM context ingestion.
-- [USER_GUIDE.md](docs/USER_GUIDE.md): Overarching user guide that explains the psychology engine (ZPD, SDT), how to run the interactive CLI, and how to start the FastAPI server.
