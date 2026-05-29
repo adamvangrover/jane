@@ -42,6 +42,7 @@ The architecture is built upon four pillars:
 - [docs/TUTORIAL_01_GETTING_STARTED.md](docs/TUTORIAL_01_GETTING_STARTED.md)
 - [docs/TUTORIAL_02_ARCHITECTURE_DEEP_DIVE.md](docs/TUTORIAL_02_ARCHITECTURE_DEEP_DIVE.md)
 - [docs/TUTORIAL_03_ZPD_AND_SDT.md](docs/TUTORIAL_03_ZPD_AND_SDT.md)
+- [docs/TUTORIAL_04_LLM_API_INTEGRATION.md](docs/TUTORIAL_04_LLM_API_INTEGRATION.md)
 - [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
 
 ## Readmes and Development
