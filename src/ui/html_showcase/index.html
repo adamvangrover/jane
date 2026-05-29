@@ -64,11 +64,37 @@
             color: #969896;
             text-align: right;
         }
+        #preset-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .preset-btn {
+            background-color: #373b41;
+            color: #81a2be;
+            border: 1px solid #81a2be;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.9em;
+            border-radius: 3px;
+        }
+        .preset-btn:hover {
+            background-color: #282a2e;
+        }
     </style>
 </head>
 <body>
     <h1>Jane UI Showcase</h1>
     <p>This is a static, interactive representation of the isolated presentation layer. Try asking about math, science, or how to learn something new!</p>
+    <div id="preset-questions">
+        <button class="preset-btn" onclick="sendPreset('Can you solve this math problem?')">Solve a math problem</button>
+        <button class="preset-btn" onclick="sendPreset('How do I write a Python loop?')">Write a Python loop</button>
+        <button class="preset-btn" onclick="sendPreset('Explain gravity to me.')">Explain gravity</button>
+        <button class="preset-btn" onclick="sendPreset('Tell me about the Roman Empire.')">Roman Empire history</button>
+        <button class="preset-btn" onclick="sendPreset('I am frustrated and want to give up.')">I'm frustrated</button>
+    </div>
     <div id="chat-container">
         <div class="message jane-message">Hello! I'm Jane, your supportive sidekick. How can we explore and learn today? (Hint: try asking me to 'solve a math problem', 'explain gravity', or say 'I'm frustrated')</div>
     </div>
@@ -113,6 +139,21 @@
                     "Hello! It's great to see you. What are we investigating today?",
                     "Hi there! Are you ready to tackle some interesting challenges?"
                 ]
+            },
+            {
+                keywords: ['code', 'python', 'loop', 'programming'],
+                responses: [
+                    "Programming is a great way to build things! What are you trying to accomplish with this loop?",
+                    "Let's break down the logic. What is the condition that should stop the loop?",
+                    "It looks like you want to write some code. Can you write pseudocode for the steps first?"
+                ]
+            },
+            {
+                keywords: ['history', 'roman', 'empire'],
+                responses: [
+                    "History is full of fascinating stories! The Roman Empire was vast. Which aspect are you most curious about: their engineering, politics, or military?",
+                    "The Romans built incredible things like aqueducts. How do you think they managed to transport water over such long distances without modern pumps?"
+                ]
             }
         ];
 
@@ -146,6 +187,11 @@
             messageDiv.textContent = text;
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendPreset(text) {
+            userInput.value = text;
+            handleSend();
         }
 
         function handleSend() {
