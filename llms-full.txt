@@ -390,8 +390,10 @@ This project is not a production application yet. It exists as a design referenc
 
 1. Review `ARCHITECTURE.md` to understand the philosophy and system design.
 2. Define core policy files such as `SOUL.md`, `AGENTS.md`, `IDENTITY.md`, `TOOLS.md`, and `MEMORY.md`.
-3. Build the secure backend as a separate implementation layer, isolating UI from core logic.
-4. Design the companion's prompt pipeline to enforce DAD, SDT, ZPD, and Mistake Mentor principles.
+3. Try out the static representation of the isolated presentation layer by opening the [HTML Showcase](src/ui/html_showcase/index.html) in your browser.
+4. Learn how to set up dynamic text generation by following [Tutorial 04: LLM API Integration](docs/TUTORIAL_04_LLM_API_INTEGRATION.md), specifically noting the "Advanced Development" section for handling multiple models.
+5. Build the secure backend as a separate implementation layer, isolating UI from core logic.
+6. Design the companion's prompt pipeline to enforce DAD, SDT, ZPD, and Mistake Mentor principles.
 
 ## Core Architectural Themes
 
@@ -1391,7 +1393,68 @@ You will notice:
 2. **Dynamic Content:** The response will be unique and tailored to your specific query, rather than selected from the limited mock templates.
 3. **Structured Output:** The CLI will still print the `Jane Response Payload`, demonstrating that the LLM successfully adhered to the Pydantic JSON structure despite generating dynamic text.
 
-## 4. Next Steps
+## 4. Testing the Live Integration
+
+Once your environment variable is set, run the CLI prototype again:
+
+```bash
+python -m src.ui.cli
+```
+
+Ask a complex, novel question (e.g., "Explain the theory of relativity using an analogy about baking bread.").
+
+You will notice:
+1. **Slight Delay:** The system will take longer to respond because it is now making asynchronous network calls to the LLM API, rather than immediately returning a hardcoded string.
+2. **Dynamic Content:** The response will be unique and tailored to your specific query, rather than selected from the limited mock templates.
+3. **Structured Output:** The CLI will still print the `Jane Response Payload`, demonstrating that the LLM successfully adhered to the Pydantic JSON structure despite generating dynamic text.
+
+## 5. Advanced Development: Swapping Models and Providers
+
+Jane's orchestration relies on the `instructor` library, which is provider-agnostic. While OpenAI is used as the default example, you can easily swap the backend to use Anthropic, Cohere, or local open-weights models (via vLLM or Ollama).
+
+### Using Anthropic
+
+To switch to Anthropic (e.g., Claude 3.5 Sonnet), you would modify the initialization in `jane.py`:
+
+```python
+import instructor
+from anthropic import AsyncAnthropic
+
+anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
+
+if anthropic_key:
+    # Initialize the instructor-patched Anthropic client
+    self.client = instructor.from_anthropic(AsyncAnthropic(api_key=anthropic_key))
+
+    # Later, in the generation call:
+    response_model = await self.client.messages.create(
+        model="claude-3-5-sonnet-20240620",
+        max_tokens=1024,
+        response_model=JaneOutput,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": query}
+        ]
+    )
+```
+
+### Handling Custom Error States
+
+When integrating live APIs, you must handle potential rate limits, API timeouts, or malformed outputs. The `instructor` library automatically retries validation errors, but network errors should be caught explicitly.
+
+In `jane.py`'s `_generate_draft` method, ensure you implement a robust `try...except` block:
+
+```python
+try:
+    draft = await self.client.chat.completions.create(...)
+    return draft
+except Exception as e:
+    logger.error(f"LLM API Error during generation: {e}")
+    # Fallback to the safe, predefined mock response
+    return self._generate_mock_response(query)
+```
+
+## 6. Next Steps
 
 Now that you have live generation active, you can begin experimenting with the prompt templates in the `prompts/` directory to fine-tune the Drafter, Critic, and Mistake Mentor behaviors.
 
@@ -1600,6 +1663,28 @@ This file tracks the evolving developmental metrics and verified decisions of th
 - **Total Interactions Evaluated:** 6
 - **Friction Applied Rate:** 100.0%
 - **Note:** Raw logs have been processed into mid-term memory patterns.
+
+
+### Interaction Session Log
+```json
+{
+  "target_zpd_level": 0.77,
+  "friction_applied": true,
+  "scaffolding_technique_used": "direct_support",
+  "conviction_score": 0.98
+}
+```
+
+
+### Interaction Session Log
+```json
+{
+  "target_zpd_level": 0.77,
+  "friction_applied": true,
+  "scaffolding_technique_used": "direct_support",
+  "conviction_score": 0.98
+}
+```
 
 
 ### Interaction Session Log

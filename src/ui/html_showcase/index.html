@@ -94,6 +94,8 @@
         <button class="preset-btn" onclick="sendPreset('Explain gravity to me.')">Explain gravity</button>
         <button class="preset-btn" onclick="sendPreset('Tell me about the Roman Empire.')">Roman Empire history</button>
         <button class="preset-btn" onclick="sendPreset('I am frustrated and want to give up.')">I'm frustrated</button>
+        <button class="preset-btn" onclick="sendPreset('How do I start a new project?')">Start new project</button>
+        <button class="preset-btn" onclick="sendPreset('Explain how memory works in Jane.')">Explain Memory</button>
     </div>
     <div id="chat-container">
         <div class="message jane-message">Hello! I'm Jane, your supportive sidekick. How can we explore and learn today? (Hint: try asking me to 'solve a math problem', 'explain gravity', or say 'I'm frustrated')</div>
@@ -153,6 +155,20 @@
                 responses: [
                     "History is full of fascinating stories! The Roman Empire was vast. Which aspect are you most curious about: their engineering, politics, or military?",
                     "The Romans built incredible things like aqueducts. How do you think they managed to transport water over such long distances without modern pumps?"
+                ]
+            },
+            {
+                keywords: ['project', 'start', 'new'],
+                responses: [
+                    "Starting a new project is exciting! Have you considered breaking it down into smaller, manageable pieces? What's the very first task?",
+                    "Great! To get started, let's define the core goal. What is the main problem this project will solve?"
+                ]
+            },
+            {
+                keywords: ['memory', 'jane', 'work'],
+                responses: [
+                    "Memory is crucial for our work! I keep track of our conversations in MEMORY.md to understand your progress. What part of that system are you curious about?",
+                    "I track your Zone of Proximal Development (ZPD) to know when to challenge you and when to offer more help. Does that make sense?"
                 ]
             }
         ];
