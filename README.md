@@ -26,8 +26,10 @@ This project is not a production application yet. It exists as a design referenc
 
 1. Review `ARCHITECTURE.md` to understand the philosophy and system design.
 2. Define core policy files such as `SOUL.md`, `AGENTS.md`, `IDENTITY.md`, `TOOLS.md`, and `MEMORY.md`.
-3. Build the secure backend as a separate implementation layer, isolating UI from core logic.
-4. Design the companion's prompt pipeline to enforce DAD, SDT, ZPD, and Mistake Mentor principles.
+3. Try out the static representation of the isolated presentation layer by opening the [HTML Showcase](src/ui/html_showcase/index.html) in your browser.
+4. Learn how to set up dynamic text generation by following [Tutorial 04: LLM API Integration](docs/TUTORIAL_04_LLM_API_INTEGRATION.md), specifically noting the "Advanced Development" section for handling multiple models.
+5. Build the secure backend as a separate implementation layer, isolating UI from core logic.
+6. Design the companion's prompt pipeline to enforce DAD, SDT, ZPD, and Mistake Mentor principles.
 
 ## Core Architectural Themes
 
