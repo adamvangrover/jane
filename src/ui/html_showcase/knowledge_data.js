@@ -326,6 +326,300 @@ const KnowledgeGraph = {
             "What is the difference between weather and climate?",
             "How does the ocean regulate the Earth's climate?"
         ]
+    },
+
+    // CHEMISTRY
+    "chem_periodic_table": {
+        id: "chem_periodic_table",
+        title: "The Periodic Table",
+        category: "Chemistry",
+        summary: "A tabular display of the chemical elements, which are arranged by atomic number, electron configuration, and recurring chemical properties. The structure of the table shows periodic trends.",
+        related: ["physics_gravity", "bio_cell_biology"],
+        keywords: ["chemistry", "periodic table", "elements", "atoms", "molecules"],
+        socratic_questions: [
+            "Why is it useful to organize elements into columns and rows?",
+            "How does an element's position on the periodic table relate to its reactivity?"
+        ]
+    },
+    "chem_chemical_bonds": {
+        id: "chem_chemical_bonds",
+        title: "Chemical Bonds",
+        category: "Chemistry",
+        summary: "A chemical bond is a lasting attraction between atoms, ions or molecules that enables the formation of chemical compounds. The bond may result from the electrostatic force of attraction between oppositely charged ions as in ionic bonds or through the sharing of electrons as in covalent bonds.",
+        related: ["chem_periodic_table", "bio_genetics"],
+        keywords: ["bond", "covalent", "ionic", "molecule", "chemistry"],
+        socratic_questions: [
+            "If atoms are neutral, why do they form bonds with other atoms?",
+            "How does the sharing or transferring of electrons change the properties of the resulting substance compared to the original elements?"
+        ]
+    },
+
+    // ADVANCED COMPUTER SCIENCE
+    "cs_machine_learning": {
+        id: "cs_machine_learning",
+        title: "Machine Learning",
+        category: "Computer Science",
+        summary: "A subfield of artificial intelligence that involves the development of algorithms and statistical models that enable computers to improve their performance on a specific task through experience (data), without being explicitly programmed.",
+        related: ["cs_algorithms", "math_algebra", "cs_python"],
+        keywords: ["machine learning", "ai", "neural networks", "data", "training"],
+        socratic_questions: [
+            "How is 'training' a machine learning model different from traditional programming?",
+            "If a model only learns from historical data, how might it struggle with completely novel situations?"
+        ]
+    },
+    "cs_quantum_computing": {
+        id: "cs_quantum_computing",
+        title: "Quantum Computing",
+        category: "Computer Science",
+        summary: "An area of computing focused on developing computer technology based on the principles of quantum theory, which explains the behavior of energy and material on the atomic and subatomic levels. Quantum computers use qubits.",
+        related: ["physics_relativity", "cs_algorithms"],
+        keywords: ["quantum", "qubit", "superposition", "entanglement", "computing"],
+        socratic_questions: [
+            "If a regular bit is either 0 or 1, what does it mean for a qubit to be in 'superposition'?",
+            "How might quantum computing impact the way we currently encrypt data?"
+        ]
+    },
+    "cs_artificial_intelligence": {
+        id: "cs_artificial_intelligence",
+        title: "Artificial Intelligence",
+        category: "Computer Science",
+        summary: "The simulation of human intelligence processes by machines, especially computer systems. These processes include learning, reasoning, and self-correction.",
+        related: ["cs_machine_learning", "phil_ethics"],
+        keywords: ["ai", "artificial intelligence", "reasoning", "automation"],
+        socratic_questions: [
+            "What distinguishes 'intelligence' from a really complex set of programmed rules?",
+            "If a machine can mimic human intelligence perfectly, does it have a mind?"
+        ]
+    },
+    "cs_cryptography": {
+        id: "cs_cryptography",
+        title: "Cryptography",
+        category: "Computer Science",
+        summary: "The practice and study of techniques for secure communication in the presence of adversarial behavior. More generally, cryptography is about constructing and analyzing protocols that prevent third parties or the public from reading private messages.",
+        related: ["cs_algorithms", "cs_quantum_computing", "math_algebra"],
+        keywords: ["encryption", "decryption", "security", "cipher", "keys"],
+        socratic_questions: [
+            "Why is math so fundamental to modern digital security?",
+            "If someone knows the algorithm used to encrypt a message, how can the message still be secure?"
+        ]
+    },
+
+    // ECONOMICS & FINANCE
+    "econ_microeconomics": {
+        id: "econ_microeconomics",
+        title: "Microeconomics",
+        category: "Economics",
+        summary: "A branch of economics that studies the behavior of individuals and firms in making decisions regarding the allocation of scarce resources and the interactions among these individuals and firms.",
+        related: ["econ_macroeconomics", "psych_behaviorism"],
+        keywords: ["supply", "demand", "price", "markets", "consumers"],
+        socratic_questions: [
+            "If the price of a good increases, what usually happens to the demand for it, and why might there be exceptions?",
+            "How do individuals decide what is 'valuable'?"
+        ]
+    },
+    "econ_macroeconomics": {
+        id: "econ_macroeconomics",
+        title: "Macroeconomics",
+        category: "Economics",
+        summary: "A branch of economics dealing with the performance, structure, behavior, and decision-making of an economy as a whole. This includes regional, national, and global economies.",
+        related: ["econ_microeconomics", "history_industrial_revolution"],
+        keywords: ["gdp", "inflation", "unemployment", "monetary policy", "economy"],
+        socratic_questions: [
+            "Why does a government sometimes intentionally try to slow down a booming economy?",
+            "How is measuring the success of an entire nation's economy different from measuring a single business's success?"
+        ]
+    },
+    "econ_cryptocurrency": {
+        id: "econ_cryptocurrency",
+        title: "Cryptocurrency",
+        category: "Economics",
+        summary: "A digital or virtual currency that is secured by cryptography, which makes it nearly impossible to counterfeit or double-spend. Many cryptocurrencies are decentralized networks based on blockchain technology.",
+        related: ["cs_cryptography", "econ_macroeconomics"],
+        keywords: ["crypto", "bitcoin", "blockchain", "decentralized", "money"],
+        socratic_questions: [
+            "If a currency is purely digital and backed by no government, what gives it value?",
+            "How does a decentralized ledger (blockchain) solve the problem of 'trust' in financial transactions?"
+        ]
+    },
+
+    // SOCIOLOGY
+    "soc_culture": {
+        id: "soc_culture",
+        title: "Culture",
+        category: "Sociology",
+        summary: "An umbrella term which encompasses the social behavior and norms found in human societies, as well as the knowledge, beliefs, arts, laws, customs, capabilities, and habits of the individuals in these groups.",
+        related: ["history_ancient_greece", "lit_shakespeare", "phil_ethics"],
+        keywords: ["culture", "society", "norms", "traditions", "values"],
+        socratic_questions: [
+            "How much of what we consider 'normal' is actually a constructed part of our specific culture?",
+            "In what ways can culture change over time, and what drives those changes?"
+        ]
+    },
+    "soc_stratification": {
+        id: "soc_stratification",
+        title: "Social Stratification",
+        category: "Sociology",
+        summary: "A society's categorization of its people into groups based on socioeconomic factors like wealth, income, race, education, ethnicity, gender, occupation, social status, or derived power (social and political).",
+        related: ["econ_macroeconomics", "history_industrial_revolution"],
+        keywords: ["class", "inequality", "status", "wealth", "hierarchy"],
+        socratic_questions: [
+            "Why do social hierarchies exist in almost all human societies?",
+            "How might education act as both a tool for social mobility and a mechanism for maintaining stratification?"
+        ]
+    },
+
+    // LINGUISTICS
+    "ling_syntax": {
+        id: "ling_syntax",
+        title: "Syntax",
+        category: "Linguistics",
+        summary: "The set of rules, principles, and processes that govern the structure of sentences in a given language, specifically word order.",
+        related: ["cs_programming", "ling_semantics"],
+        keywords: ["grammar", "sentence", "structure", "language", "words"],
+        socratic_questions: [
+            "Why can a sentence be grammatically correct but completely nonsensical?",
+            "How does the syntax of human language differ from the syntax of a programming language?"
+        ]
+    },
+    "ling_semantics": {
+        id: "ling_semantics",
+        title: "Semantics",
+        category: "Linguistics",
+        summary: "The linguistic and philosophical study of meaning in language, programming languages, formal logics, and semiotics. It focuses on the relationship between signifiers—like words, phrases, signs, and symbols—and what they stand for.",
+        related: ["ling_syntax", "phil_ethics"],
+        keywords: ["meaning", "words", "communication", "interpretation", "logic"],
+        socratic_questions: [
+            "How can two people say the exact same words but mean completely different things?",
+            "If words change their meaning over time, who decides what a word means right now?"
+        ]
+    },
+
+    // MEDICINE & HEALTH
+    "med_immunology": {
+        id: "med_immunology",
+        title: "Immunology",
+        category: "Medicine",
+        summary: "A branch of biology and medicine that covers the study of immune systems in all organisms. It maps, measures, and contextualizes the physiological functioning of the immune system in states of both health and diseases.",
+        related: ["bio_cell_biology", "bio_evolution"],
+        keywords: ["immune", "antibodies", "vaccines", "health", "disease"],
+        socratic_questions: [
+            "How does the body 'remember' a disease it has fought off before?",
+            "Why does the immune system sometimes attack the body itself, as in autoimmune diseases?"
+        ]
+    },
+    "med_pharmacology": {
+        id: "med_pharmacology",
+        title: "Pharmacology",
+        category: "Medicine",
+        summary: "A branch of medicine, biology and pharmaceutical sciences concerned with drug or medication action, where a drug may be defined as any artificial, natural, or endogenous molecule which exerts a biochemical or physiological effect on the cell, tissue, organ, or organism.",
+        related: ["chem_chemical_bonds", "med_immunology"],
+        keywords: ["drugs", "medicine", "biochemistry", "treatment", "pharmacy"],
+        socratic_questions: [
+            "How does a pill you swallow know where to go in your body to fix a problem?",
+            "What is the difference between a medicine and a poison?"
+        ]
+    },
+    "med_anatomy": {
+        id: "med_anatomy",
+        title: "Human Anatomy",
+        category: "Medicine",
+        summary: "The study of the structure of the human body. An understanding of anatomy is key to the practice of medicine and other areas of health.",
+        related: ["bio_cell_biology", "med_pharmacology"],
+        keywords: ["body", "organs", "bones", "muscles", "structure"],
+        socratic_questions: [
+            "If you were designing a human skeleton from scratch, would you change anything about how the joints work?",
+            "How do different organ systems rely on each other to keep the body alive?"
+        ]
+    },
+
+    // POLITICAL SCIENCE
+    "poli_democracy": {
+        id: "poli_democracy",
+        title: "Democracy",
+        category: "Political Science",
+        summary: "A form of government in which the people have the authority to deliberate and decide legislation, or to choose governing officials to do so.",
+        related: ["history_ancient_greece", "phil_ethics"],
+        keywords: ["voting", "government", "representation", "freedom", "elections"],
+        socratic_questions: [
+            "What are the trade-offs between a direct democracy (where everyone votes on everything) and a representative democracy?",
+            "How does a democracy protect the rights of the minority against the will of the majority?"
+        ]
+    },
+    "poli_international_relations": {
+        id: "poli_international_relations",
+        title: "International Relations",
+        category: "Political Science",
+        summary: "The scientific study of the international system, representing interactions between sovereign states, intergovernmental organizations, non-governmental organizations, and multinational corporations.",
+        related: ["econ_macroeconomics", "geo_climate"],
+        keywords: ["diplomacy", "treaties", "globalization", "sovereignty", "conflict"],
+        socratic_questions: [
+            "If there is no global police force, how do nations enforce agreements with each other?",
+            "How does economic interdependence between nations affect the likelihood of war?"
+        ]
+    },
+
+    // ART HISTORY
+    "art_impressionism": {
+        id: "art_impressionism",
+        title: "Impressionism",
+        category: "Art History",
+        summary: "A 19th-century art movement characterized by relatively small, thin, yet visible brush strokes, open composition, emphasis on accurate depiction of light in its changing qualities (often accentuating the effects of the passage of time).",
+        related: ["art_renaissance", "history_industrial_revolution"],
+        keywords: ["monet", "painting", "light", "france", "brushstrokes"],
+        socratic_questions: [
+            "Why did artists start prioritizing capturing 'light and moment' over photorealistic detail during this period?",
+            "How might the invention of photography have pushed painters toward Impressionism?"
+        ]
+    },
+    "art_surrealism": {
+        id: "art_surrealism",
+        title: "Surrealism",
+        category: "Art History",
+        summary: "A cultural movement that developed in Europe in the aftermath of World War I in which artists depicted unnerving, illogical scenes and developed techniques to allow the unconscious mind to express itself.",
+        related: ["psych_learning", "art_impressionism"],
+        keywords: ["dali", "dreams", "unconscious", "art", "bizarre"],
+        socratic_questions: [
+            "What can bizarre, dream-like art tell us about the human mind that realistic art cannot?",
+            "How does breaking the 'rules' of reality in art affect the viewer's interpretation?"
+        ]
+    },
+
+    // PHILOSOPHY (Expanded)
+    "phil_existentialism": {
+        id: "phil_existentialism",
+        title: "Existentialism",
+        category: "Philosophy",
+        summary: "A form of philosophical inquiry that explores the problem of human existence and centers on the lived experience of the thinking, feeling, acting individual. In the view of the existentialist, the individual's starting point is characterized by what has been called 'the existential attitude', or a sense of disorientation, confusion, or dread in the face of an apparently meaningless or absurd world.",
+        related: ["phil_ethics", "phil_stoicism"],
+        keywords: ["meaning", "absurdism", "sartre", "camus", "freedom", "choice"],
+        socratic_questions: [
+            "If life has no inherent, pre-given meaning, how does one go about creating meaning for themselves?",
+            "Why is absolute freedom sometimes seen as terrifying rather than liberating?"
+        ]
+    },
+    "phil_epistemology": {
+        id: "phil_epistemology",
+        title: "Epistemology",
+        category: "Philosophy",
+        summary: "The branch of philosophy concerned with knowledge. Epistemologists study the nature, origin, and scope of knowledge, epistemic justification, the rationality of belief, and various related issues.",
+        related: ["science_newton", "math_logic"],
+        keywords: ["knowledge", "truth", "belief", "justification", "reason"],
+        socratic_questions: [
+            "How do you know that you are not dreaming right now?",
+            "What is the difference between believing something that happens to be true, and actually 'knowing' it?"
+        ]
+    },
+    "math_logic": {
+        id: "math_logic",
+        title: "Logic",
+        category: "Mathematics & Philosophy",
+        summary: "The study of correct reasoning or good arguments. It is often divided into formal and informal logic.",
+        related: ["math_algebra", "cs_programming", "phil_epistemology"],
+        keywords: ["logic", "reasoning", "deduction", "induction", "fallacy"],
+        socratic_questions: [
+            "If all A are B, and all B are C, are all A necessarily C? Why?",
+            "What is a logical fallacy, and how can identifying them improve our thinking?"
+        ]
     }
 };
 
