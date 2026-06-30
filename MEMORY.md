@@ -126,3 +126,25 @@ This file tracks the evolving developmental metrics and verified decisions of th
   "conviction_score": 0.98
 }
 ```
+
+
+### Interaction Session Log
+```json
+{
+  "target_zpd_level": 0.77,
+  "friction_applied": true,
+  "scaffolding_technique_used": "direct_support",
+  "conviction_score": 0.98
+}
+```
+
+
+### Interaction Session Log
+```json
+{
+  "target_zpd_level": 0.77,
+  "friction_applied": true,
+  "scaffolding_technique_used": "direct_support",
+  "conviction_score": 0.98
+}
+```
