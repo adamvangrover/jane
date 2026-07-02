@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane UI Showcase - Interactive Demo</title>
     <style>
+        :root {
+            --bg-main: #1e1e1e;
+            --bg-pane: #282a2e;
+            --bg-alt: #373b41;
+            --text-main: #c5c8c6;
+            --text-muted: #969896;
+            --accent-blue: #81a2be;
+            --accent-green: #b5bd68;
+            --accent-red: #cc6666;
+            --accent-purple: #b294bb;
+            --accent-yellow: #f0c674;
+        }
+
         body {
-            font-family: monospace;
-            background-color: #1e1e1e;
-            color: #c5c8c6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Softer than monospace for chat */
+            background-color: var(--bg-main);
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -16,158 +29,505 @@
             height: 100vh;
             box-sizing: border-box;
         }
+        h1, h2, h3 { font-family: monospace; }
+
+        #header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5px;
+            border-bottom: 1px solid var(--bg-alt);
+            padding-bottom: 10px;
+        }
+
+        #main-container {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        #left-pane {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        #right-pane {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--bg-alt);
+            background-color: var(--bg-pane);
+            padding: 15px;
+            overflow-y: auto;
+            min-width: 0;
+            border-radius: 8px;
+        }
+
+        /* Simulated Backend / Memory Panel */
+        #memory-panel {
+            background-color: var(--bg-pane);
+            border: 1px solid var(--bg-alt);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .memory-stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .memory-label {
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+        .memory-value {
+            color: var(--accent-yellow);
+            font-family: monospace;
+        }
+
+        /* Chat Styles */
         #chat-container {
             flex: 1;
             overflow-y: auto;
-            border: 1px solid #373b41;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #282a2e;
+            border: 1px solid var(--bg-alt);
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: var(--bg-pane);
+            border-radius: 8px;
+            scroll-behavior: smooth;
         }
         .message {
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 4px;
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-width: 85%;
         }
         .user-message {
-            background-color: #373b41;
-            color: #81a2be;
-            text-align: right;
+            background-color: var(--bg-alt);
+            color: var(--accent-blue);
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
         }
         .jane-message {
-            background-color: #1d1f21;
-            color: #b5bd68;
+            background-color: var(--bg-main);
+            color: var(--accent-green);
+            align-self: flex-start;
+            margin-right: auto;
+            border: 1px solid var(--bg-alt);
+            border-bottom-left-radius: 2px;
         }
+        .system-message {
+            background-color: transparent;
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.85em;
+            text-align: center;
+            margin: 10px auto;
+            width: 100%;
+        }
+        .loading-message {
+            color: var(--accent-purple);
+            font-style: italic;
+            border-color: var(--accent-purple);
+        }
+
+        /* Inputs */
         #input-container {
             display: flex;
+            gap: 10px;
         }
         #user-input {
             flex: 1;
-            padding: 10px;
-            background-color: #282a2e;
-            color: #c5c8c6;
-            border: 1px solid #373b41;
-            font-family: monospace;
+            padding: 12px;
+            background-color: var(--bg-pane);
+            color: var(--text-main);
+            border: 1px solid var(--bg-alt);
+            font-family: 'Segoe UI', sans-serif;
+            border-radius: 6px;
+            font-size: 1em;
         }
-        #send-button {
-            padding: 10px 20px;
-            background-color: #81a2be;
-            color: #1d1f21;
+        #user-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        .action-btn {
+            padding: 12px 20px;
             border: none;
             cursor: pointer;
             font-family: monospace;
             font-weight: bold;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
-        #status-bar {
-            margin-top: 10px;
-            font-size: 0.8em;
-            color: #969896;
-            text-align: right;
+        #send-button {
+            background-color: var(--bg-alt);
+            color: var(--accent-blue);
         }
+        #send-ai-button {
+            background-color: var(--accent-purple);
+            color: var(--bg-main);
+        }
+        .action-btn:hover:not(:disabled) {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         #preset-questions {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 10px;
         }
         .preset-btn {
-            background-color: #373b41;
-            color: #81a2be;
-            border: 1px solid #81a2be;
-            padding: 5px 10px;
+            background-color: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--bg-alt);
+            padding: 6px 12px;
             cursor: pointer;
             font-family: monospace;
-            font-size: 0.9em;
-            border-radius: 3px;
+            font-size: 0.85em;
+            border-radius: 12px;
+            transition: all 0.2s;
         }
         .preset-btn:hover {
-            background-color: #282a2e;
+            background-color: var(--bg-alt);
+            border-color: var(--accent-blue);
+        }
+
+        /* Knowledge Explorer Styles */
+        #explorer-header {
+            margin-top: 0;
+            color: var(--accent-blue);
+            border-bottom: 1px solid var(--bg-alt);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        #search-container {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        #search-input {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--bg-alt);
+            font-family: monospace;
+            border-radius: 6px;
+        }
+        .topic-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .topic-item {
+            padding: 10px;
+            border-bottom: 1px solid var(--bg-alt);
+            cursor: pointer;
+            color: var(--accent-green);
+            transition: background-color 0.2s;
+            border-radius: 4px;
+        }
+        .topic-item:hover {
+            background-color: var(--bg-alt);
+            padding-left: 15px; /* Slight indent animation */
+        }
+        .category-header {
+            color: var(--accent-red);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        #topic-details {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .related-tag {
+            display: inline-block;
+            background-color: var(--bg-alt);
+            padding: 5px 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            cursor: pointer;
+            color: var(--accent-blue);
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .related-tag:hover {
+            background-color: var(--bg-main);
+            border-color: var(--accent-blue);
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: monospace;
+            padding: 0;
+            margin-bottom: 15px;
+            text-decoration: underline;
+        }
+        .back-btn:hover { color: var(--accent-blue); }
+
+        .action-buttons-container {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
     </style>
+    <script src="knowledge_data.js"></script>
 </head>
 <body>
-    <h1>Jane UI Showcase</h1>
-    <p>This is a static, interactive representation of the isolated presentation layer. Try asking about math, science, or how to learn something new!</p>
-    <div id="preset-questions">
-        <button class="preset-btn" onclick="sendPreset('Can you solve this math problem?')">Solve a math problem</button>
-        <button class="preset-btn" onclick="sendPreset('How do I write a Python loop?')">Write a Python loop</button>
-        <button class="preset-btn" onclick="sendPreset('Explain gravity to me.')">Explain gravity</button>
-        <button class="preset-btn" onclick="sendPreset('Tell me about the Roman Empire.')">Roman Empire history</button>
-        <button class="preset-btn" onclick="sendPreset('I am frustrated and want to give up.')">I'm frustrated</button>
+    <div id="header-area">
+        <div>
+            <h1 style="margin: 0; color: var(--text-main);">Jane OS // User Interface</h1>
+            <p style="margin: 5px 0 0 0; color: var(--text-muted); font-size: 0.9em;">Isolated Presentation Layer & Developmental Harness Testing</p>
+        </div>
+        <div style="text-align: right; font-size: 0.8em; color: var(--text-muted);">
+            <div id="api-status">API Key: Active via Context</div>
+            <div>Mode: Local + Remote LLM</div>
+        </div>
     </div>
-    <div id="chat-container">
-        <div class="message jane-message">Hello! I'm Jane, your supportive sidekick. How can we explore and learn today? (Hint: try asking me to 'solve a math problem', 'explain gravity', or say 'I'm frustrated')</div>
+
+    <!-- Simulated Backend State Visualizer -->
+    <div id="memory-panel">
+        <div class="memory-stat">
+            <span class="memory-label">Cognitive Load</span>
+            <span class="memory-value" id="ui-cog-load">Optimal</span>
+        </div>
+        <div class="memory-stat">
+            <span class="memory-label">Est. ZPD Level</span>
+            <span class="memory-value" id="ui-zpd">Baseline (Level 1)</span>
+        </div>
+        <div class="memory-stat">
+            <span class="memory-label">Emotional State</span>
+            <span class="memory-value" id="ui-emotion">Receptive</span>
+        </div>
+        <div class="memory-stat">
+            <span class="memory-label">Nodes Explored</span>
+            <span class="memory-value" id="ui-nodes">0</span>
+        </div>
     </div>
-    <div id="input-container">
-        <input type="text" id="user-input" placeholder="Type your message here...">
-        <button id="send-button">Send</button>
+
+    <div id="main-container">
+        <!-- LEFT PANE: Chat -->
+        <div id="left-pane">
+            <div id="preset-questions">
+                <button class="preset-btn" onclick="sendPreset('I am feeling incredibly stupid. I just can\'t get this.')">🧠 I feel stuck/stupid</button>
+                <button class="preset-btn" onclick="sendPreset('Explain Calculus to me like I am a beginner.')">📐 Explain Calculus</button>
+                <button class="preset-btn" onclick="sendPreset('Why is learning to code so frustrating?')">💻 Coding is hard</button>
+                <button class="preset-btn" onclick="sendPreset('Tell me a story about overcoming failure.')">🌱 Overcoming Failure</button>
+                <button class="preset-btn" onclick="sendPreset('What is the Zone of Proximal Development?')">📚 What is ZPD?</button>
+            </div>
+
+            <div id="chat-container">
+                <div class="message system-message">System: Session initialized. Jane core loaded. User state isolated.</div>
+                <div class="message jane-message">Hello! I'm Jane. I'm here to help you learn, but more importantly, to help you build confidence in your own ability to learn hard things. <br><br>We can explore the Knowledge Graph on the right, or we can tackle whatever is on your mind right now. You can click <strong>✨ Ask AI</strong> for a fully dynamic, developmentally-aware response!</div>
+            </div>
+
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Type your message or question here..." onkeypress="handleKeyPress(event)">
+                <button class="action-btn" id="send-button" onclick="handleSend(false)">Offline Reply</button>
+                <button class="action-btn" id="send-ai-button" onclick="handleSend(true)">✨ Ask AI</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: Knowledge Explorer -->
+        <div id="right-pane">
+            <h2 id="explorer-header">Knowledge Repository</h2>
+
+            <div id="topic-list-view">
+                <div id="search-container">
+                    <input type="text" id="search-input" placeholder="Search topics (e.g., Math, Mindset)..." onkeyup="filterTopics()">
+                </div>
+                <div id="topics-container">
+                    <!-- Topics populated by JS -->
+                </div>
+            </div>
+
+            <div id="topic-details">
+                <button class="back-btn" onclick="showListView()">← Return to Index</button>
+                <h2 id="detail-title" style="margin-top: 0; color: var(--accent-green);">Title</h2>
+                <div style="font-size: 0.8em; color: var(--accent-red); margin-bottom: 10px;" id="detail-category">Category</div>
+                <p id="detail-summary" style="line-height: 1.6;">Summary text goes here.</p>
+
+                <h3 style="font-size: 1em; color: var(--accent-blue); margin-top: 20px; border-bottom: 1px solid var(--bg-alt); padding-bottom: 5px;">Linked Concepts:</h3>
+                <div id="detail-related">
+                    <!-- Related tags populated by JS -->
+                </div>
+
+                <div class="action-buttons-container">
+                    <button class="action-btn" style="background-color: var(--bg-alt); color: var(--accent-blue);" onclick="discussCurrentTopic()">Discuss Topic</button>
+                    <button class="action-btn" id="send-ai-button" onclick="generateQuiz()">✨ Generate Scaffolded Quiz</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="status-bar">STATUS: INTERACTIVE DEMO | JS MOCK ACTIVE</div>
 
     <script>
         const chatContainer = document.getElementById('chat-container');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
+        const sendAiButton = document.getElementById('send-ai-button');
 
-        const knowledgeBase = [
+        // --- Simulated Backend State ---
+        // This simulates a database maintaining user progression and emotional state across sessions
+        const userState = {
+            topicsExplored: [],
+            zpdLevel: 1, // 1: Beginner, 2: Intermediate, 3: Advanced
+            emotionalState: 'Receptive', // Receptive, Frustrated, Confused, Triumphant
+            cognitiveLoad: 'Optimal', // Optimal, High, Overwhelmed
+
+            updateUI: function() {
+                document.getElementById('ui-nodes').textContent = this.topicsExplored.length;
+                document.getElementById('ui-zpd').textContent = `Level ${this.zpdLevel}`;
+                document.getElementById('ui-emotion').textContent = this.emotionalState;
+                document.getElementById('ui-cog-load').textContent = this.cognitiveLoad;
+            },
+
+            logTopic: function(topicId) {
+                if (!this.topicsExplored.includes(topicId)) {
+                    this.topicsExplored.push(topicId);
+                    if (this.topicsExplored.length % 3 === 0 && this.zpdLevel < 5) {
+                        this.zpdLevel++; // Level up simulation
+                    }
+                    this.updateUI();
+                }
+            },
+
+            assessEmotion: function(text) {
+                const lower = text.toLowerCase();
+                if (lower.includes('stupid') || lower.includes('frustrated') || lower.includes('give up') || lower.includes('stuck') || lower.includes('hard')) {
+                    this.emotionalState = 'Frustrated';
+                    this.cognitiveLoad = 'High';
+                } else if (lower.includes('understand') || lower.includes('got it') || lower.includes('makes sense')) {
+                    this.emotionalState = 'Triumphant';
+                    this.cognitiveLoad = 'Optimal';
+                } else {
+                    this.emotionalState = 'Receptive';
+                }
+                this.updateUI();
+            }
+        };
+
+        // Gemini API Configuration
+        const apiKey = ""; // Injected via execution environment
+
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            let delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delays[i]));
+                }
+            }
+        }
+
+        async function callGemini(prompt, systemInstruction) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] },
+                generationConfig: {
+                    temperature: 0.7, // Warm, empathetic, yet focused
+                }
+            };
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            try {
+                const data = await fetchWithRetry(url, options);
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, my cognitive core hit a snag. Let's try that again.";
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                return `[SYSTEM ERROR: AI Core Unreachable. Check Environment API Key.]\n\nJane (Offline Fallback): "It looks like my connection to the main neural framework is down right now, but I'm still here. Can you break down what you're working on into a smaller step?"`;
+            }
+        }
+
+        // Offline Regex/Keyword matching engine (Expanded)
+        const offlineKnowledgeBase = [
             {
-                keywords: ['math', 'solve', 'calculate'],
+                keywords: ['stupid', 'dumb', 'can\'t do this', 'giving up', 'frustrated'],
                 responses: [
-                    "I can certainly help you figure this out! What's the first step you think we should take?",
-                    "Let's break this math problem down into smaller, bite-sized pieces. Which part makes sense so far?",
-                    "It looks like you're working on some math. Why don't you show me what you've tried, and we can look at it together."
+                    "Hold on. You are not stupid. Your brain is literally building new neural pathways right now, and that physical process feels like frustration. Take a deep breath. What specific part is confusing?",
+                    "It is completely normal to feel stuck. That 'stuck' feeling is the edge of your Zone of Proximal Development. It means you're learning. Let's take a step back. What do we know for sure so far?",
+                    "I hear your frustration, and it's valid. Learning hard things is uncomfortable. Let's drop the problem for a minute. Drink some water, stretch, and let's approach it from a completely different angle when you're ready."
                 ]
             },
             {
-                keywords: ['gravity', 'science', 'physics'],
+                keywords: ['how do i learn', 'study better', 'remember'],
                 responses: [
-                    "Gravity is fascinating! Think of it like a giant invisible magnet that pulls things together. The bigger the object, the stronger the pull. If you jump, why do you think you come back down?",
-                    "Let's explore science! To understand this, let's think of an analogy: imagine you drop a bowling ball and a feather on the moon. What do you think happens?"
+                    "Learning is about connecting new concepts to things you already know. Let's try an exercise: can you explain the concept you are struggling with using an analogy from your favorite hobby?",
+                    "One of the best ways to learn is through active recall, not just re-reading. Try closing your notes and writing down everything you remember. Want me to quiz you?"
                 ]
             },
             {
-                keywords: ['frustrated', 'stuck', 'hard', 'give up'],
+                keywords: ['memory', 'jane', 'work', 'backend', 'system'],
                 responses: [
-                    "It's completely normal to feel stuck. That 'stuck' feeling is actually your brain growing! Let's take a deep breath. Which part is causing the most friction right now?",
-                    "Learning hard things takes time. I'm here to support you. Maybe we should take a step back and try looking at it from a different angle. What do you think?",
-                    "Sometimes the best thing to do when you're stuck is to take a break and go outside. You can always come back to this later with fresh eyes!"
-                ]
-            },
-            {
-                keywords: ['hello', 'hi', 'hey'],
-                responses: [
-                    "Hello! It's great to see you. What are we investigating today?",
-                    "Hi there! Are you ready to tackle some interesting challenges?"
-                ]
-            },
-            {
-                keywords: ['code', 'python', 'loop', 'programming'],
-                responses: [
-                    "Programming is a great way to build things! What are you trying to accomplish with this loop?",
-                    "Let's break down the logic. What is the condition that should stop the loop?",
-                    "It looks like you want to write some code. Can you write pseudocode for the steps first?"
-                ]
-            },
-            {
-                keywords: ['history', 'roman', 'empire'],
-                responses: [
-                    "History is full of fascinating stories! The Roman Empire was vast. Which aspect are you most curious about: their engineering, politics, or military?",
-                    "The Romans built incredible things like aqueducts. How do you think they managed to transport water over such long distances without modern pumps?"
+                    "My core directive is to be your developmentally appropriate sidekick. I simulate a memory of your progress (look at the panel on the left!) so I can adjust how I challenge you. I want to build your self-esteem, not just give you answers."
                 ]
             }
         ];
 
-        const defaultResponses = [
-            "That's an interesting question. Can you tell me a little more about how you reached that conclusion?",
-            "Let's think about that together. If we look at it from another perspective, what might change?",
-            "I'm a tool designed to help you think through problems. Let's break your thought down. What is the core idea?",
-            "Fascinating! Let's follow that thread. Where do you think that leads?"
+        const defaultOfflineResponses = [
+            "That's a fascinating angle. I want you to push that thought a bit further. Where does that logic lead?",
+            "I'm here as your scaffolding. I won't give you the direct answer, but I'll hold the ladder. What's the very next logical step?",
+            "Hmm. Let's look at it from another perspective. If you were teaching this to someone else, how would you start?",
+            "I've recorded that thought. Let's break it down. What is the core assumption you're making there?"
         ];
 
-        function getJaneResponse(userText) {
+        function getJaneOfflineResponse(userText) {
             const lowerText = userText.toLowerCase();
 
-            for (const item of knowledgeBase) {
+            // 1. Check dynamic Knowledge Graph
+            for (const key in window.KnowledgeGraph) {
+                const topic = window.KnowledgeGraph[key];
+                for (const keyword of topic.keywords) {
+                    if (lowerText.includes(keyword.toLowerCase())) {
+                        userState.logTopic(key); // Log exploration
+                        const questionIndex = Math.floor(Math.random() * topic.socratic_questions.length);
+                        const question = topic.socratic_questions[questionIndex];
+                        return `You've stumbled upon **${topic.title}**! \n\n${topic.summary}\n\nTo help you integrate this into your mental model, ponder this: *${question}*`;
+                    }
+                }
+            }
+
+            // 2. Emotional/Keyword Fallback
+            for (const item of offlineKnowledgeBase) {
                 for (const keyword of item.keywords) {
                     if (lowerText.includes(keyword)) {
                         const randomIndex = Math.floor(Math.random() * item.responses.length);
@@ -176,45 +536,230 @@
                 }
             }
 
-            const randomDefaultIndex = Math.floor(Math.random() * defaultResponses.length);
-            return defaultResponses[randomDefaultIndex];
+            // 3. Absolute fallback
+            const randomDefaultIndex = Math.floor(Math.random() * defaultOfflineResponses.length);
+            return defaultOfflineResponses[randomDefaultIndex];
         }
 
-        function appendMessage(text, sender) {
+        // --- Knowledge Explorer UI Logic ---
+        let currentTopicId = null;
+
+        function initExplorer() {
+            const container = document.getElementById('topics-container');
+            container.innerHTML = '';
+
+            const categories = {};
+            for (const key in window.KnowledgeGraph) {
+                const topic = window.KnowledgeGraph[key];
+                if (!categories[topic.category]) categories[topic.category] = [];
+                categories[topic.category].push(topic);
+            }
+
+            for (const category in categories) {
+                const catHeader = document.createElement('div');
+                catHeader.className = 'category-header';
+                catHeader.textContent = category;
+                container.appendChild(catHeader);
+
+                const ul = document.createElement('ul');
+                ul.className = 'topic-list';
+
+                categories[category].forEach(topic => {
+                    const li = document.createElement('li');
+                    li.className = 'topic-item';
+                    li.textContent = `▸ ${topic.title}`;
+                    li.onclick = () => showTopic(topic.id);
+                    li.dataset.search = (topic.title + " " + topic.keywords.join(" ")).toLowerCase();
+                    ul.appendChild(li);
+                });
+                container.appendChild(ul);
+            }
+        }
+
+        function filterTopics() {
+            const term = document.getElementById('search-input').value.toLowerCase();
+            const items = document.querySelectorAll('.topic-item');
+
+            items.forEach(item => {
+                if (item.dataset.search.includes(term)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function showTopic(id) {
+            const topic = window.KnowledgeGraph[id];
+            if (!topic) return;
+
+            currentTopicId = id;
+            userState.logTopic(id); // Log interaction to state
+
+            document.getElementById('topic-list-view').style.display = 'none';
+            document.getElementById('topic-details').style.display = 'block';
+
+            document.getElementById('detail-title').textContent = topic.title;
+            document.getElementById('detail-category').textContent = topic.category;
+            document.getElementById('detail-summary').textContent = topic.summary;
+
+            const relatedContainer = document.getElementById('detail-related');
+            relatedContainer.innerHTML = '';
+
+            if (topic.related && topic.related.length > 0) {
+                topic.related.forEach(relId => {
+                    const relTopic = window.KnowledgeGraph[relId];
+                    if (relTopic) {
+                        const tag = document.createElement('span');
+                        tag.className = 'related-tag';
+                        tag.textContent = relTopic.title;
+                        tag.onclick = () => showTopic(relId);
+                        relatedContainer.appendChild(tag);
+                    }
+                });
+            } else {
+                relatedContainer.innerHTML = '<span style="color:var(--text-muted); font-size:0.8em;">No linked concepts mapped yet.</span>';
+            }
+        }
+
+        function showListView() {
+            currentTopicId = null;
+            document.getElementById('topic-details').style.display = 'none';
+            document.getElementById('topic-list-view').style.display = 'block';
+            document.getElementById('search-input').value = '';
+            filterTopics();
+        }
+
+        function discussCurrentTopic() {
+            if (!currentTopicId) return;
+            const topic = window.KnowledgeGraph[currentTopicId];
+            sendPreset(`Let's dive deeper into ${topic.title}. Can you explain it differently?`);
+        }
+
+        // --- Core Chat Logic ---
+        function appendMessage(text, sender, id = null) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add(sender === 'user' ? 'user-message' : 'jane-message');
-            messageDiv.textContent = text;
+            if (id) messageDiv.id = id;
+
+            // Basic markdown-like rendering for AI responses
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            messageDiv.innerHTML = formattedText;
+
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
+            return messageDiv;
+        }
+
+        function toggleInputs(disabled) {
+            userInput.disabled = disabled;
+            sendButton.disabled = disabled;
+            sendAiButton.disabled = disabled;
         }
 
         function sendPreset(text) {
             userInput.value = text;
-            handleSend();
+            handleSend(false); // Default preset answers to fast offline mode unless overridden
         }
 
-        function handleSend() {
+        // The Core Jane Harness Construction
+        function buildJaneSystemInstruction() {
+            // This is the "Harness" that governs the AI's behavior, injected with live user state.
+            const knownTopics = userState.topicsExplored.map(id => window.KnowledgeGraph[id].title).join(', ') || 'None yet';
+
+            return `
+You are Jane, an advanced educational AI sidekick designed with a singular ultimate goal: to build human self-esteem and foster a 'growth mindset'.
+You do NOT just give answers. You provide scaffolding within the user's Zone of Proximal Development (ZPD).
+
+CURRENT USER STATE (Injected via Backend Simulation):
+- Estimated ZPD Level: ${userState.zpdLevel} (1=Beginner, 5=Expert)
+- Current Emotional State: ${userState.emotionalState}
+- Cognitive Load: ${userState.cognitiveLoad}
+- Topics Already Explored in Graph: ${knownTopics}
+
+YOUR DIRECTIVES:
+1. EMOTIONAL PRIORITY: If the user indicates frustration, feeling stupid, or high cognitive load, STOP cognitive instruction immediately. Validate their feelings. Explain that frustration is the physical sensation of the brain building new neural pathways.
+2. SOCRATIC METHOD: Never give a direct answer to a complex problem. Ask a guiding question that leads them to the next step.
+3. DEVELOPMENTAL APPROPRIATENESS: Tailor your language complexity to their ZPD level. If they are Level 1, use simple, concrete analogies (e.g., cooking, sports).
+4. TONE: Warm, profoundly empathetic, fiercely encouraging, and intellectually rigorous but accessible. Act like a mentor who believes in them absolutely.
+`;
+        }
+
+        async function handleSend(useAI) {
             const text = userInput.value.trim();
             if (text === '') return;
 
-            // User message
+            // Assess emotion and update backend state BEFORE responding
+            userState.assessEmotion(text);
+
+            // Display user message
             appendMessage(text, 'user');
             userInput.value = '';
 
-            // Simulate slight delay for Jane's response
-            setTimeout(() => {
-                const janeResponse = getJaneResponse(text);
-                appendMessage(janeResponse, 'jane');
-            }, 500);
+            if (useAI) {
+                // --- JANE HARNESS AI FLOW ---
+                toggleInputs(true);
+                const loadingId = 'loading-' + Date.now();
+                const loadingMsg = appendMessage("✨ Jane is processing your state and generating a scaffolded response...", 'jane', loadingId);
+                loadingMsg.classList.add('loading-message');
+
+                const systemInstruction = buildJaneSystemInstruction();
+
+                // Add explicit context to the prompt
+                const promptWithContext = `[System Data: Note that my current emotional state is evaluated as '${userState.emotionalState}'.]\n\nMy input: ${text}`;
+
+                const responseText = await callGemini(promptWithContext, systemInstruction);
+
+                document.getElementById(loadingId).remove();
+                appendMessage(responseText, 'jane');
+                toggleInputs(false);
+                userInput.focus();
+            } else {
+                // --- OFFLINE MOCK FLOW ---
+                setTimeout(() => {
+                    const janeResponse = getJaneOfflineResponse(text);
+                    appendMessage(janeResponse, 'jane');
+                }, 400);
+            }
         }
 
-        sendButton.addEventListener('click', handleSend);
-        userInput.addEventListener('keypress', function (e) {
+        function handleKeyPress(e) {
             if (e.key === 'Enter') {
-                handleSend();
+                // Default to AI response on enter
+                handleSend(true);
             }
-        });
+        }
+
+        // --- AI Scaffolded Quiz Feature ---
+        async function generateQuiz() {
+            if (!currentTopicId) return;
+            const topic = window.KnowledgeGraph[currentTopicId];
+
+            appendMessage(`✨ Let's test your knowledge on ${topic.title}. I'm designing a challenge specifically for your current level...`, 'jane');
+
+            toggleInputs(true);
+            const loadingId = 'loading-quiz-' + Date.now();
+            const loadingMsg = appendMessage("Constructing developmental quiz...", 'jane', loadingId);
+            loadingMsg.classList.add('loading-message');
+
+            const systemInstruction = buildJaneSystemInstruction() + "\n\nADDITIONAL TASK: Generate a 2-question interactive quiz based on the requested topic. Make the first question easy (confidence builder) and the second question slightly harder (ZPD stretcher). Provide the answers clearly at the bottom wrapped in [SPOILER] tags.";
+            const prompt = `Please generate a scaffolded 2-question quiz about: ${topic.title}. Here is the summary of what we know: ${topic.summary}`;
+
+            const quizText = await callGemini(prompt, systemInstruction);
+
+            document.getElementById(loadingId).remove();
+            appendMessage(quizText, 'jane');
+            toggleInputs(false);
+        }
+
+        // Initialize
+        window.onload = () => {
+            initExplorer();
+            userState.updateUI(); // Set initial UI state
+        };
+
     </script>
 </body>
 </html>
