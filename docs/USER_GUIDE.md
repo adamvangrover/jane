@@ -33,6 +33,10 @@ python -m src.ui.cli
 ```
 You can then interact with Jane by typing your queries.
 
+You can also use the `/explore` command to search and read about the core architectural and psychological concepts that power Jane:
+*   Type `/explore` to list all available concepts.
+*   Type `/explore <search term>` (e.g., `/explore zpd` or `/explore architecture`) to search the knowledge base for specific information.
+
 ### FastAPI Server
 Jane exposes a REST API microservice for more advanced integrations.
 

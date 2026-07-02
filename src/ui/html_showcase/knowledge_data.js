@@ -819,9 +819,7 @@ const KnowledgeGraph = {
             "How is following a recipe to bake a cake similar to an algorithm?",
             "Why does it matter if an algorithm is efficient if computers are so fast today?"
         ]
-    }
-
-,
+    },
 
     // LIFE SKILLS & THRIVING
     "life_personal_finance": {
@@ -902,9 +900,6 @@ const KnowledgeGraph = {
             "How does a strong sense of community contribute to an individual's overall happiness and longevity?"
         ]
     }
-
 };
-
-
 
 window.KnowledgeGraph = KnowledgeGraph;

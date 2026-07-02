@@ -301,6 +301,7 @@
             flex-wrap: wrap;
         }
     </style>
+    <script src="knowledge_data.js"></script>
 </head>
 <body>
     <div id="header-area">
@@ -333,7 +334,7 @@
             <span class="memory-value" id="ui-nodes">0</span>
         </div>
     </div>
-    
+
     <div id="main-container">
         <!-- LEFT PANE: Chat -->
         <div id="left-pane">
@@ -344,12 +345,12 @@
                 <button class="preset-btn" onclick="sendPreset('Tell me a story about overcoming failure.')">🌱 Overcoming Failure</button>
                 <button class="preset-btn" onclick="sendPreset('What is the Zone of Proximal Development?')">📚 What is ZPD?</button>
             </div>
-            
+
             <div id="chat-container">
                 <div class="message system-message">System: Session initialized. Jane core loaded. User state isolated.</div>
                 <div class="message jane-message">Hello! I'm Jane. I'm here to help you learn, but more importantly, to help you build confidence in your own ability to learn hard things. <br><br>We can explore the Knowledge Graph on the right, or we can tackle whatever is on your mind right now. You can click <strong>✨ Ask AI</strong> for a fully dynamic, developmentally-aware response!</div>
             </div>
-            
+
             <div id="input-container">
                 <input type="text" id="user-input" placeholder="Type your message or question here..." onkeypress="handleKeyPress(event)">
                 <button class="action-btn" id="send-button" onclick="handleSend(false)">Offline Reply</button>
@@ -478,8 +479,7 @@
             }
         }
 
-        // --- Expanded Massive Offline Repository ---
-                // Offline Regex/Keyword matching engine (Expanded)
+        // Offline Regex/Keyword matching engine (Expanded)
         const offlineKnowledgeBase = [
             {
                 keywords: ['stupid', 'dumb', 'can\'t do this', 'giving up', 'frustrated'],
