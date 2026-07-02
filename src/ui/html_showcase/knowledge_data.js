@@ -620,6 +620,59 @@ const KnowledgeGraph = {
             "If all A are B, and all B are C, are all A necessarily C? Why?",
             "What is a logical fallacy, and how can identifying them improve our thinking?"
         ]
+    }
+,
+
+    // MATHEMATICS
+    "math_calculus": {
+        id: "math_calculus",
+        title: "Calculus",
+        category: "Mathematics",
+        summary: "Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.",
+        related: ["math_algebra", "physics_gravity"],
+        keywords: ["calculus", "derivative", "integral", "newton", "leibniz"],
+        socratic_questions: [
+            "How does calculating the area under a curve help us understand real-world quantities like distance traveled?",
+            "If algebra helps us solve equations with static numbers, what does calculus help us solve?"
+        ]
+    },
+    "math_algebra": {
+        id: "math_algebra",
+        title: "Algebra",
+        category: "Mathematics",
+        summary: "Algebra is one of the broad areas of mathematics, together with number theory, geometry and analysis. In its most general form, algebra is the study of mathematical symbols and the rules for manipulating these symbols.",
+        related: ["math_calculus"],
+        keywords: ["algebra", "equations", "variables", "symbols", "mathematics"],
+        socratic_questions: [
+            "Why do we use letters like 'x' and 'y' in algebra instead of just numbers?",
+            "How does learning algebra help improve logical problem-solving skills?"
+        ]
+    },
+
+    // CHEMISTRY
+    "chem_periodic_table": {
+        id: "chem_periodic_table",
+        title: "The Periodic Table",
+        category: "Chemistry",
+        summary: "The periodic table, also known as the periodic table of the elements, is a tabular display of the chemical elements, which are arranged by atomic number, electron configuration, and recurring chemical properties.",
+        related: ["bio_cell_biology", "physics_relativity"],
+        keywords: ["chemistry", "elements", "atoms", "mendeleev", "molecules"],
+        socratic_questions: [
+            "Why do elements in the same column of the periodic table have similar chemical properties?",
+            "How does the arrangement of electrons in an atom determine how it reacts with other atoms?"
+        ]
+    },
+    "chem_chemical_bonds": {
+        id: "chem_chemical_bonds",
+        title: "Chemical Bonds",
+        category: "Chemistry",
+        summary: "A chemical bond is a lasting attraction between atoms, ions or molecules that enables the formation of chemical compounds. The bond may result from the electrostatic force of attraction between oppositely charged ions as in ionic bonds or through the sharing of electrons as in covalent bonds.",
+        related: ["chem_periodic_table"],
+        keywords: ["bonds", "covalent", "ionic", "molecules", "compounds"],
+        socratic_questions: [
+            "What is the difference between sharing electrons and transferring them?",
+            "How do chemical bonds store energy?"
+        ]
     },
 
     // ASTRONOMY
@@ -674,6 +727,46 @@ const KnowledgeGraph = {
         ]
     },
 
+    // ECONOMICS
+    "econ_supply_demand": {
+        id: "econ_supply_demand",
+        title: "Supply and Demand",
+        category: "Economics",
+        summary: "In microeconomics, supply and demand is an economic model of price determination in a market. It postulates that, holding all else equal, in a competitive market, the unit price for a particular good, or other traded item such as labor or liquid financial assets, will vary until it settles at a point where the quantity demanded (at the current price) will equal the quantity supplied (at the current price), resulting in an economic equilibrium for price and quantity transacted.",
+        related: ["history_industrial_revolution"],
+        keywords: ["economics", "supply", "demand", "market", "price", "equilibrium"],
+        socratic_questions: [
+            "What happens to the price of a good if it suddenly becomes very popular but the supply stays the same?",
+            "How do minimum wage laws affect the supply and demand for labor?"
+        ]
+    },
+    "econ_macroeconomics": {
+        id: "econ_macroeconomics",
+        title: "Macroeconomics",
+        category: "Economics",
+        summary: "Macroeconomics is a branch of economics dealing with the performance, structure, behavior, and decision-making of an economy as a whole. For example, using interest rates, taxes and government spending to regulate an economy's growth and stability.",
+        related: ["econ_supply_demand"],
+        keywords: ["macroeconomics", "gdp", "inflation", "unemployment", "fiscal policy", "monetary policy"],
+        socratic_questions: [
+            "Why is a small amount of inflation generally considered a sign of a healthy economy?",
+            "How does printing more money affect the value of currency?"
+        ]
+    },
+
+    // POLITICS
+    "pol_democracy": {
+        id: "pol_democracy",
+        title: "Democracy",
+        category: "Politics",
+        summary: "Democracy is a form of government in which the people have the authority to deliberate and decide legislation, or to choose governing officials to do so.",
+        related: ["history_ancient_greece", "phil_ethics"],
+        keywords: ["democracy", "voting", "government", "citizens", "republic"],
+        socratic_questions: [
+            "What are the benefits and drawbacks of a direct democracy vs. a representative democracy?",
+            "How crucial is a free press to a functioning democracy?"
+        ]
+    },
+
     // LINGUISTICS
     "ling_language_families": {
         id: "ling_language_families",
@@ -699,6 +792,32 @@ const KnowledgeGraph = {
         socratic_questions: [
             "Why do you think ancient cultures created complex pantheons of gods with human-like flaws?",
             "How do themes from Greek myths continue to influence modern storytelling?"
+        ]
+    },
+
+    // COMPUTER SCIENCE
+    "cs_artificial_intelligence": {
+        id: "cs_artificial_intelligence",
+        title: "Artificial Intelligence",
+        category: "Computer Science",
+        summary: "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans.",
+        related: ["cs_programming", "phil_ethics", "math_calculus"],
+        keywords: ["ai", "machine learning", "neural networks", "robotics", "turing test"],
+        socratic_questions: [
+            "Can a machine ever truly 'understand' something, or is it just simulating understanding?",
+            "What are the ethical implications of creating AI that is more intelligent than humans?"
+        ]
+    },
+    "cs_algorithms": {
+        id: "cs_algorithms",
+        title: "Algorithms",
+        category: "Computer Science",
+        summary: "In mathematics and computer science, an algorithm is a finite sequence of well-defined, computer-implementable instructions, typically to solve a class of problems or to perform a computation.",
+        related: ["cs_programming", "math_algebra"],
+        keywords: ["algorithms", "sorting", "searching", "computation", "efficiency"],
+        socratic_questions: [
+            "How is following a recipe to bake a cake similar to an algorithm?",
+            "Why does it matter if an algorithm is efficient if computers are so fast today?"
         ]
     },
 

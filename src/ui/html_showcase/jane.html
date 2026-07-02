@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane UI Showcase - Interactive Demo</title>
-    <script src="knowledge_data.js"></script>
     <style>
         :root {
             --bg-main: #1e1e1e;
@@ -31,7 +30,7 @@
             box-sizing: border-box;
         }
         h1, h2, h3 { font-family: monospace; }
-
+        
         #header-area {
             display: flex;
             justify-content: space-between;
@@ -65,7 +64,7 @@
             min-width: 0;
             border-radius: 8px;
         }
-
+        
         /* Simulated Backend / Memory Panel */
         #memory-panel {
             background-color: var(--bg-pane);
@@ -110,7 +109,7 @@
             padding: 12px 16px;
             border-radius: 8px;
             line-height: 1.5;
-            white-space: pre-wrap;
+            white-space: pre-wrap; 
             max-width: 85%;
         }
         .user-message {
@@ -293,7 +292,7 @@
             text-decoration: underline;
         }
         .back-btn:hover { color: var(--accent-blue); }
-
+        
         .action-buttons-container {
             margin-top: 25px;
             display: flex;
@@ -301,7 +300,6 @@
             flex-wrap: wrap;
         }
     </style>
-    <script src="knowledge_data.js"></script>
 </head>
 <body>
     <div id="header-area">
@@ -314,7 +312,7 @@
             <div>Mode: Local + Remote LLM</div>
         </div>
     </div>
-
+    
     <!-- Simulated Backend State Visualizer -->
     <div id="memory-panel">
         <div class="memory-stat">
@@ -334,7 +332,7 @@
             <span class="memory-value" id="ui-nodes">0</span>
         </div>
     </div>
-
+    
     <div id="main-container">
         <!-- LEFT PANE: Chat -->
         <div id="left-pane">
@@ -345,12 +343,12 @@
                 <button class="preset-btn" onclick="sendPreset('Tell me a story about overcoming failure.')">🌱 Overcoming Failure</button>
                 <button class="preset-btn" onclick="sendPreset('What is the Zone of Proximal Development?')">📚 What is ZPD?</button>
             </div>
-
+            
             <div id="chat-container">
                 <div class="message system-message">System: Session initialized. Jane core loaded. User state isolated.</div>
                 <div class="message jane-message">Hello! I'm Jane. I'm here to help you learn, but more importantly, to help you build confidence in your own ability to learn hard things. <br><br>We can explore the Knowledge Graph on the right, or we can tackle whatever is on your mind right now. You can click <strong>✨ Ask AI</strong> for a fully dynamic, developmentally-aware response!</div>
             </div>
-
+            
             <div id="input-container">
                 <input type="text" id="user-input" placeholder="Type your message or question here..." onkeypress="handleKeyPress(event)">
                 <button class="action-btn" id="send-button" onclick="handleSend(false)">Offline Reply</button>
@@ -403,14 +401,14 @@
             zpdLevel: 1, // 1: Beginner, 2: Intermediate, 3: Advanced
             emotionalState: 'Receptive', // Receptive, Frustrated, Confused, Triumphant
             cognitiveLoad: 'Optimal', // Optimal, High, Overwhelmed
-
+            
             updateUI: function() {
                 document.getElementById('ui-nodes').textContent = this.topicsExplored.length;
                 document.getElementById('ui-zpd').textContent = `Level ${this.zpdLevel}`;
                 document.getElementById('ui-emotion').textContent = this.emotionalState;
                 document.getElementById('ui-cog-load').textContent = this.cognitiveLoad;
             },
-
+            
             logTopic: function(topicId) {
                 if (!this.topicsExplored.includes(topicId)) {
                     this.topicsExplored.push(topicId);
@@ -438,7 +436,7 @@
 
         // Gemini API Configuration
         const apiKey = ""; // Injected via execution environment
-
+        
         async function fetchWithRetry(url, options, maxRetries = 5) {
             let delays = [1000, 2000, 4000, 8000, 16000];
             for (let i = 0; i < maxRetries; i++) {
@@ -455,7 +453,7 @@
 
         async function callGemini(prompt, systemInstruction) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
+            
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }],
                 systemInstruction: { parts: [{ text: systemInstruction }] },
@@ -478,6 +476,78 @@
                 return `[SYSTEM ERROR: AI Core Unreachable. Check Environment API Key.]\n\nJane (Offline Fallback): "It looks like my connection to the main neural framework is down right now, but I'm still here. Can you break down what you're working on into a smaller step?"`;
             }
         }
+
+        // --- Expanded Massive Offline Repository ---
+        window.KnowledgeGraph = {
+            // Science & Math
+            "topic_gravity": {
+                id: "topic_gravity", title: "Gravity", category: "Physics",
+                summary: "Gravity is a fundamental interaction which causes mutual attraction between all things that have mass. It's what keeps planets in orbit and our feet on the ground.",
+                keywords: ["gravity", "physics", "mass", "attraction", "newton"],
+                socratic_questions: ["Why do you think objects fall downwards instead of upwards?", "If you were on the moon, how would gravity feel different, and why?"],
+                related: ["topic_relativity", "topic_calculus"]
+            },
+            "topic_relativity": {
+                id: "topic_relativity", title: "General Relativity", category: "Physics",
+                summary: "Einstein's geometric theory of gravitation. It proposes that gravity is not just a pulling force, but a warping of the fabric of spacetime itself by massive objects.",
+                keywords: ["relativity", "einstein", "spacetime", "physics", "time"],
+                socratic_questions: ["Imagine placing a heavy bowling ball on a trampoline. How does that help explain gravity acting on spacetime?", "Why might time move differently near a very massive object like a black hole?"],
+                related: ["topic_gravity"]
+            },
+            "topic_algebra": {
+                id: "topic_algebra", title: "Algebraic Thinking", category: "Mathematics",
+                summary: "Algebra is about finding the unknown or putting real-life variables into equations and then solving them. It represents a shift from concrete arithmetic to abstract reasoning.",
+                keywords: ["algebra", "math", "variables", "equations", "unknown"],
+                socratic_questions: ["If an 'x' represents an unknown box of apples, why is it helpful to use letters instead of just guessing numbers?", "How is solving an equation like balancing a scale?"],
+                related: ["topic_calculus"]
+            },
+            "topic_calculus": {
+                id: "topic_calculus", title: "Introduction to Calculus", category: "Mathematics",
+                summary: "Calculus is the mathematical study of continuous change, just as geometry is the study of shape. It allows us to understand rates of change (derivatives) and accumulation (integrals).",
+                keywords: ["calculus", "math", "change", "derivatives", "integrals"],
+                socratic_questions: ["If algebra calculates the average speed of a road trip, what kind of math do you think calculates the exact speed on your speedometer at a specific fraction of a second?", "Why is it important to measure how things change over time?"],
+                related: ["topic_algebra", "topic_gravity"]
+            },
+
+            // Computer Science
+            "topic_python": {
+                id: "topic_python", title: "Python Programming", category: "Computer Science",
+                summary: "Python is a high-level, interpreted programming language known for its readability. It's designed to let humans express logic to computers clearly and efficiently.",
+                keywords: ["python", "code", "programming", "language", "development"],
+                socratic_questions: ["What is a real-world scenario where you have to do the exact same task 100 times? How could a 'loop' in code help?", "How is writing code similar to writing a recipe for a chef?"],
+                related: ["topic_algorithms"]
+            },
+            "topic_algorithms": {
+                id: "topic_algorithms", title: "Algorithmic Logic", category: "Computer Science",
+                summary: "An algorithm is simply a step-by-step set of instructions designed to perform a specific task. Every computer program is built on algorithms.",
+                keywords: ["algorithm", "logic", "steps", "code", "sorting"],
+                socratic_questions: ["If you had to explain how to make a peanut butter sandwich to an alien who takes everything literally, what steps would you write?", "Why does the order of steps matter in an algorithm?"],
+                related: ["topic_python"]
+            },
+
+            // Mental Frameworks & Psychology
+            "topic_growth_mindset": {
+                id: "topic_growth_mindset", title: "Growth Mindset", category: "Psychology",
+                summary: "Coined by Carol Dweck, a growth mindset is the belief that abilities and intelligence can be developed through dedication and hard work. Brains and talent are just the starting point.",
+                keywords: ["mindset", "growth", "learning", "failure", "dweck", "effort"],
+                socratic_questions: ["When you say 'I can't do this', how does adding the word 'yet' at the end change your perspective?", "Think of a time you failed at something. What did that failure teach you that success couldn't have?"],
+                related: ["topic_imposter_syndrome", "topic_zpd"]
+            },
+            "topic_imposter_syndrome": {
+                id: "topic_imposter_syndrome", title: "Imposter Syndrome", category: "Psychology",
+                summary: "A psychological occurrence in which an individual doubts their skills, talents, or accomplishments and has a persistent internalized fear of being exposed as a 'fraud'.",
+                keywords: ["imposter", "fraud", "doubt", "fear", "confidence", "stupid"],
+                socratic_questions: ["If your best friend spoke to you the way your inner critic speaks to you right now, would you still be friends with them?", "What is one piece of concrete evidence that proves you actually *do* belong here?"],
+                related: ["topic_growth_mindset"]
+            },
+            "topic_zpd": {
+                id: "topic_zpd", title: "Zone of Proximal Development", category: "Education",
+                summary: "Developed by Lev Vygotsky, the ZPD is the distance between what a learner can do independently and what they can do with guidance. It's the 'sweet spot' for learning.",
+                keywords: ["zpd", "vygotsky", "learning", "scaffolding", "education", "jane"],
+                socratic_questions: ["If a task is too easy, you get bored. If it's too hard, you get frustrated. Can you identify a concept you are studying right now that sits right in the middle?", "How can an AI tutor act as 'scaffolding' for your mind?"],
+                related: ["topic_growth_mindset"]
+            }
+        };
 
         // Offline Regex/Keyword matching engine (Expanded)
         const offlineKnowledgeBase = [
@@ -547,7 +617,7 @@
 
         function initExplorer() {
             const container = document.getElementById('topics-container');
-            container.innerHTML = '';
+            container.innerHTML = ''; 
 
             const categories = {};
             for (const key in window.KnowledgeGraph) {
@@ -628,7 +698,7 @@
             document.getElementById('topic-details').style.display = 'none';
             document.getElementById('topic-list-view').style.display = 'block';
             document.getElementById('search-input').value = '';
-            filterTopics();
+            filterTopics(); 
         }
 
         function discussCurrentTopic() {
@@ -643,12 +713,12 @@
             messageDiv.classList.add('message');
             messageDiv.classList.add(sender === 'user' ? 'user-message' : 'jane-message');
             if (id) messageDiv.id = id;
-
+            
             // Basic markdown-like rendering for AI responses
             let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
             messageDiv.innerHTML = formattedText;
-
+            
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
             return messageDiv;
@@ -669,9 +739,9 @@
         function buildJaneSystemInstruction() {
             // This is the "Harness" that governs the AI's behavior, injected with live user state.
             const knownTopics = userState.topicsExplored.map(id => window.KnowledgeGraph[id].title).join(', ') || 'None yet';
-
+            
             return `
-You are Jane, an advanced educational AI sidekick designed with a singular ultimate goal: to build human self-esteem and foster a 'growth mindset'.
+You are Jane, an advanced educational AI sidekick designed with a singular ultimate goal: to build human self-esteem and foster a 'growth mindset'. 
 You do NOT just give answers. You provide scaffolding within the user's Zone of Proximal Development (ZPD).
 
 CURRENT USER STATE (Injected via Backend Simulation):
@@ -707,12 +777,12 @@ YOUR DIRECTIVES:
                 loadingMsg.classList.add('loading-message');
 
                 const systemInstruction = buildJaneSystemInstruction();
-
+                
                 // Add explicit context to the prompt
                 const promptWithContext = `[System Data: Note that my current emotional state is evaluated as '${userState.emotionalState}'.]\n\nMy input: ${text}`;
-
+                
                 const responseText = await callGemini(promptWithContext, systemInstruction);
-
+                
                 document.getElementById(loadingId).remove();
                 appendMessage(responseText, 'jane');
                 toggleInputs(false);
@@ -729,7 +799,7 @@ YOUR DIRECTIVES:
         function handleKeyPress(e) {
             if (e.key === 'Enter') {
                 // Default to AI response on enter
-                handleSend(true);
+                handleSend(true); 
             }
         }
 
@@ -737,9 +807,9 @@ YOUR DIRECTIVES:
         async function generateQuiz() {
             if (!currentTopicId) return;
             const topic = window.KnowledgeGraph[currentTopicId];
-
+            
             appendMessage(`✨ Let's test your knowledge on ${topic.title}. I'm designing a challenge specifically for your current level...`, 'jane');
-
+            
             toggleInputs(true);
             const loadingId = 'loading-quiz-' + Date.now();
             const loadingMsg = appendMessage("Constructing developmental quiz...", 'jane', loadingId);
